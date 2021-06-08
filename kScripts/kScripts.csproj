@@ -56,7 +56,7 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Mod\Scripts\EnemyActivity_S.cs" />
+        <Compile Include="Mod\Scripts\EnemyActivity.cs" />
         <Compile Include="Mod\Scripts\kHelper_S.cs" />
         <Compile Include="Mod\Scripts\kTeleportObject_S.cs" />
         <Compile Include="Mod\Scripts\k_displace_S.cs" />

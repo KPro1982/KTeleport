@@ -48,7 +48,7 @@ public class KProCustomRadial
 				{
 					int itemCount = _xuiRadialWindow.xui.PlayerInventory.GetItemCount(itemClass.Id);
 					bool flag = (int)_epl.inventory.holdingItemItemValue.SelectedAmmoTypeIndex == i;
-					_xuiRadialWindow.CreateRadialEntry(i, itemClass.GetIconName(), (itemCount > 0) ? "ItemIconAtlas" : "ItemIconAtlasGreyscale", "", itemClass.GetLocalizedItemName(), flag);
+					_xuiRadialWindow.CreateRadialEntry(i, itemClass.GetIconName(), (itemCount > 0) ? "ItemIconAtlas" : "ItemIconAtlasGreyscale", itemCount.ToString(), itemClass.GetLocalizedItemName(), flag);
 
 
 					if (flag)

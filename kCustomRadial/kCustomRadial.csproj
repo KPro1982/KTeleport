@@ -56,9 +56,15 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Mod\Harmony\Hello_Init_H.cs" />
-        <Compile Include="Mod\Harmony\KPro_CustomRadial_H.cs" />
+        <Compile Include="Mod\Harmony\Hello_Init.cs" />
+        <Compile Include="Mod\Harmony\KProCustomRadial.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\kScripts\kScripts.csproj">
+        <Project>{8e43f488-5fab-43f1-941a-8960beb95caa}</Project>
+        <Name>kScripts</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <PropertyGroup>

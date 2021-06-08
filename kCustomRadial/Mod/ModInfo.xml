@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+  <ModInfo>
+    <Name value="kTeleport"/>
+    <Description value="KPro's Teleport system for standalone."/>
+    <Author value="KPro"/>
+    <Version value="1.0"/>
+    <Website value="https://github.com"/>
+  </ModInfo>
+</xml>

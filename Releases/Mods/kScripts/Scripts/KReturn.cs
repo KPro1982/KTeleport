@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 
 namespace kScripts
 {
-    class k_return : ConsoleCmdAbstract
+    class KReturn : ConsoleCmdAbstract
 	{
     
-		private EntityPlayer entityPlayer;
+		private EntityPlayer _entityPlayer;
 
-		public override string[] GetCommands() => new[] { "k_return" };
+		public override string[] GetCommands() => new[] { "KReturn" };
 
 		public override string GetDescription() => "Return to location prior to last teleport.";
 
@@ -29,20 +25,20 @@ namespace kScripts
 
 			if (_senderInfo.IsLocalGame)
 			{
-				entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-				kTeleportObject teleportObject = new kTeleportObject();
+				_entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+				KTeleportObject teleportObject = new KTeleportObject();
 
 				if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
 				{
-					Vector3i returnV3i = entityPlayer.GetBlockPosition();
+					Vector3i returnV3I = _entityPlayer.GetBlockPosition();
 
-					if (teleportObject.TryGetLocation("return", out var targetV3i))
+					if (teleportObject.TryGetLocation("return", out var targetV3I))
                     {
-						teleportObject.Add("return", returnV3i);
-						kHelper.Teleport(targetV3i);
+						teleportObject.Add("return", returnV3I);
+						KHelper.Teleport(targetV3I);
 					} else
                     {
-						kHelper.ChatOutput(entityPlayer, "No return location was stored.");
+						KHelper.ChatOutput(_entityPlayer, "No return location was stored.");
                     }
 
 				}
@@ -54,7 +50,7 @@ namespace kScripts
 			}
 			else
 			{
-				entityPlayer = GameManager.Instance.World.Players.dict[_senderInfo.RemoteClientInfo.entityId];
+				_entityPlayer = GameManager.Instance.World.Players.dict[_senderInfo.RemoteClientInfo.entityId];
 			}
 
 

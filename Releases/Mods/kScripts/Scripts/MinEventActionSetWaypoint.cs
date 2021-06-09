@@ -6,7 +6,7 @@ public class MinEventActionSetWaypoint : MinEventActionBase
     string command;
     //ClientInfo _cInfo;
     private EntityPlayer entityPlayer;
-    public kTeleportObject saveTeleport = new kTeleportObject();
+    public KTeleportObject saveTeleport = new KTeleportObject();
 
     public override void Execute(MinEventParams _params)
     {
@@ -23,7 +23,7 @@ public class MinEventActionSetWaypoint : MinEventActionBase
             {
                 entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
                 saveTeleport.Add("waypoint", entityPlayer.GetBlockPosition());
-                kHelper.ChatOutput(entityPlayer, "Waypoint location stored.");
+                KHelper.ChatOutput(entityPlayer, "Waypoint location stored.");
             }
             else
             {

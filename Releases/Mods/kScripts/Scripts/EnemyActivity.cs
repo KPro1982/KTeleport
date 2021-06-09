@@ -20,7 +20,7 @@ namespace kScripts
 
             nearbyEntities.RemoveAll(x => x.name == _theEntity.name);
             nearbyEntities.RemoveAll(x => x.IsDead());
-            kHelper.EasyLog($"Nearby Entities: {nearbyEntities.Count}", log);
+            KHelper.EasyLog($"Nearby Entities: {nearbyEntities.Count}", log);
 
             return nearbyEntities;
         }
@@ -42,7 +42,7 @@ namespace kScripts
                     targetingEntities.Remove(x);  // safe to assume that only entities only occur in list once? If not what would the remove all look like?
                 }
             }
-            kHelper.EasyLog(
+            KHelper.EasyLog(
                 (targetingEntities.Count != originalCount)
                     ? $"{originalCount} entities are in the area. {targetingEntities.Count} targeting you...yet."
                     : (targetingEntities.Count > 0 ? $"Happy now? You pissed everyone off." : ""),

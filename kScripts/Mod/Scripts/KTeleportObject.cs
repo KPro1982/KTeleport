@@ -5,57 +5,62 @@ using System.IO;
 
 namespace kScripts
 {
-	public class kTeleportObject
+	public class KTeleportObject
 	{
 		// MAKE THIS STATIC AND MAKE SURE TO READ() FROM DISK BEFORE ADD
 
 
-		private List<teleportData> Locations = new List<teleportData>();
-		XmlSerializer serializer = new XmlSerializer(typeof(List<teleportData>));
-		private static string savedGameDirectoryStr = "";
+		private List<teleportData> _locations = new List<teleportData>();
+		readonly XmlSerializer _serializer = new XmlSerializer(typeof(List<teleportData>));
+		private static string _savedGameDirectory = "";
 
-		public kTeleportObject()
+		public KTeleportObject()
 		{
-			savedGameDirectoryStr = kHelper.GetSavedGameDirectory();
-			LogAnywhere.Log(string.Format("Creating kTeleportObject. SavedDirectory: {0}", savedGameDirectoryStr),true);
+			LogLevel log = LogLevel.File;
+			_savedGameDirectory = KHelper.GetSavedGameDirectory();
+			KHelper.EasyLog($"Creating kTeleportObject. SavedDirectory: {_savedGameDirectory}", log);
 		}
 		public void Add(string _name, Vector3i _loc)
 		{
-			teleportData _data = new teleportData(_name, _loc);
-			if (Locations.Exists(x => x.name.Equals(_name)))
+			LogLevel log = LogLevel.Both;
+			teleportData data = new teleportData(_name, _loc);
+			Read();
+			if (_locations.Exists(x => x.name.Equals(_name)))
             {
-				int num = Locations.RemoveAll(x => x.name.Equals(_name));
-				LogAnywhere.Log(string.Format("Removed {0} entries with name: {1}", num, _name),true);
+				int num = _locations.RemoveAll(x => x.name.Equals(_name));
+				KHelper.EasyLog($"Removed {num} entries with name: {_name}",log);
 			}
-			Locations.Add(_data);
+			_locations.Add(data);
 			
-			LogAnywhere.Log(string.Format("Added location name: {0} at {1}", _data.name, _data.coords.ToStringNoBlanks()), true);
-			LogAnywhere.Log(Locations);
+			KHelper.EasyLog($"Added location name: {data.name} at {data.coords.ToStringNoBlanks()}", log);
+			KHelper.EasyLog(_locations,log);
 
 			Write();
 		}
 		private void Write()
 		{
+			LogLevel log = LogLevel.Both;
 			string savePath = BuildSavePath();
-			LogAnywhere.Log("Write()", true);
+			KHelper.EasyLog("Write()", log);
 			TextWriter writer = new StreamWriter(savePath, false);
-			serializer.Serialize(writer, Locations);
+			_serializer.Serialize(writer, _locations);
 			writer.Close();
 		}
 		private void Read()
 		{
+			LogLevel log = LogLevel.Both;
 			string savePath = BuildSavePath();
 			FileStream myFileStream = new FileStream(savePath, FileMode.OpenOrCreate);
             try
             {
-				List<teleportData> myObject = (List<teleportData>)serializer.Deserialize(myFileStream);
-                Locations = myObject;
-				LogAnywhere.Log(string.Format("Count: {0}", myObject.Count));
-				LogAnywhere.Log(myObject);
+				List<teleportData> myObject = (List<teleportData>)_serializer.Deserialize(myFileStream);
+                _locations = myObject;
+                KHelper.EasyLog($"Count: {myObject.Count}", log);
+                KHelper.EasyLog(myObject, log);
 
 			} catch
             {
-				LogAnywhere.Log("As no data file exists, creating data file now.");
+	            KHelper.EasyLog("As no data file exists, creating data file now.", LogLevel.File);
             }
 			myFileStream.Close();
 
@@ -65,29 +70,30 @@ namespace kScripts
 		}
 		public bool TryGetLocation(string _name, out Vector3i _coords)
         {
+	        LogLevel log = LogLevel.Both;
 			Read();
 			try
             {
-				teleportData home = Locations.Find(x => x.name.Equals(_name));
-				LogAnywhere.Log(string.Format("Found location name: {0} at {1}.", home.name, home.coords.ToString()));
-				LogAnywhere.Log(home);
+				teleportData home = _locations.Find(x => x.name.Equals(_name));
+				KHelper.EasyLog($"Found location name: {home.name} at {home.coords.ToString()}.", log);
+				KHelper.EasyLog(home, log);
 				_coords = home.coords;
 				return true;
 			} catch
             {
-				LogAnywhere.Log(string.Format("Error: location name: {0} was not found!", _name),true);
+	            KHelper.EasyLog($"Error: location name: {_name} was not found!",log);
 				_coords = new Vector3i(0,0,0);
 				return false;
             }
         }
 		private string BuildSavePath()
         {
-			LogAnywhere.Log("BuildSavePath()", true);
-			string[] gameNameArray = savedGameDirectoryStr.Split('/');
+	        LogLevel log = LogLevel.None;
+	        KHelper.EasyLog("BuildSavePath()", log);
+			string[] gameNameArray = _savedGameDirectory.Split('/');
 			string gameNameStr = (string)gameNameArray.GetValue(gameNameArray.Length-1);
-			LogAnywhere.Log(string.Format("Save Game Name: {0}", gameNameStr));
-			string savePath = savedGameDirectoryStr + "/" + gameNameStr + "_kTeleport.xml";
-			LogAnywhere.Log(string.Format("Save Path: {0}", savePath));
+			string savePath = _savedGameDirectory + "/" + gameNameStr + "_kTeleport.xml";
+			KHelper.EasyLog($"Save Path: {savePath}", log);
 			return savePath;
 		}
 	}

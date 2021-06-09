@@ -1,16 +1,15 @@
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
 namespace kScripts
 { 
-	public class k_displace : ConsoleCmdAbstract
+	public class KDisplace : ConsoleCmdAbstract
 	  {
-		  private EntityPlayer entityPlayer;
-		  private Vector3i newLocationV3i = new Vector3i(0,0,0);
-		  private int dx, dz;
+		  private EntityPlayer _entityPlayer;
+		  private Vector3i _newLocationV3I = new Vector3i(0,0,0);
+		  private int _dx, _dz;
 
-		  public override string[] GetCommands() => new[] {"k_displace"};
+		  public override string[] GetCommands() => new[] {"KDisplace"};
 
 		  public override string GetDescription() => "Get location of player entity.";
 
@@ -19,20 +18,20 @@ namespace kScripts
 			if (_params.Count == 2 )
 			{
 			
-				bool isValid = int.TryParse(_params[0], out dx);
+				bool isValid = int.TryParse(_params[0], out _dx);
 				if (isValid)
 				{
 
-					isValid = int.TryParse(_params[1], out dz);
+					int.TryParse(_params[1], out _dz);
 				}
 			} else
 			{
 				var rand = new Random();
-				dx = rand.Next(10, 30);
-				dz = rand.Next(10, 30);
+				_dx = rand.Next(10, 30);
+				_dz = rand.Next(10, 30);
 			}
 
-				if (!_senderInfo.IsLocalGame && _senderInfo.RemoteClientInfo == null)
+			if (!_senderInfo.IsLocalGame && _senderInfo.RemoteClientInfo == null)
 			{
 				SingletonMonoBehaviour<SdtdConsole>.Instance.Output("Command can only be used on clients.");
 				return;
@@ -41,12 +40,14 @@ namespace kScripts
 		
 			if (_senderInfo.IsLocalGame)
 			{
-				entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-				newLocationV3i = displaceEntity(dx, 0, dz);
-				kHelper.ChatOutput(entityPlayer, string.Format("Current Player Coordinates: {0},{1}  -> New Coordinates {2}, {3}", entityPlayer.GetBlockPosition().x, entityPlayer.GetBlockPosition().z, newLocationV3i.x, newLocationV3i.z));
+				_entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+				_newLocationV3I = DisplaceEntity(_dx, 0, _dz);
+				KHelper.EasyLog(
+					$"Current Player Coordinates: {_entityPlayer.GetBlockPosition().x},{_entityPlayer.GetBlockPosition().z}  -> New Coordinates {_newLocationV3I.x}, {_newLocationV3I.z}",
+					LogLevel.Chat);
 				if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
 				{
-					kHelper.Teleport(newLocationV3i);
+					KHelper.Teleport(_newLocationV3I);
 				}
 				else
 				{
@@ -56,15 +57,15 @@ namespace kScripts
 			}
 			else
 			{
-				entityPlayer = GameManager.Instance.World.Players.dict[_senderInfo.RemoteClientInfo.entityId];
+				_entityPlayer = GameManager.Instance.World.Players.dict[_senderInfo.RemoteClientInfo.entityId];
 			}
 
 
 		}
-		private Vector3i  displaceEntity(int _x, int _y, int _z)
+		private Vector3i  DisplaceEntity(int _x, int _y, int _z)
 		{
 			Vector3i displaceAmount = new Vector3i(_x, _y, _z);
-			return entityPlayer.GetBlockPosition() + displaceAmount;
+			return _entityPlayer.GetBlockPosition() + displaceAmount;
 		}
 	
 	

@@ -16,7 +16,7 @@ public class MinEventActionGoWaypoint : MinEventActionBase
     private LogLevel log = LogLevel.Both;
     //ClientInfo _cInfo;
     private EntityPlayer entityPlayer;
-    public kTeleportObject saveTeleport = new kTeleportObject();
+    public KTeleportObject saveTeleport = new KTeleportObject();
 
     public override void Execute(MinEventParams _params)
     {
@@ -31,7 +31,7 @@ public class MinEventActionGoWaypoint : MinEventActionBase
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
                 entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-                kTeleportObject teleportObject = new kTeleportObject();
+                KTeleportObject teleportObject = new KTeleportObject();
 
 
                 Vector3i returnV3i = entityPlayer.GetBlockPosition();
@@ -42,16 +42,16 @@ public class MinEventActionGoWaypoint : MinEventActionBase
                     if (teleportObject.TryGetLocation("waypoint", out var targetV3i))
                     {
                         teleportObject.Add("return", returnV3i);
-                        kHelper.Teleport(targetV3i);
+                        KHelper.Teleport(targetV3i);
                     }
                     else
                     {
-                        kHelper.ChatOutput(entityPlayer, "You cannot go to the waypoint as there is no waypoint location stored.");
+                        KHelper.ChatOutput(entityPlayer, "You cannot go to the waypoint as there is no waypoint location stored.");
                     }
                 }
                 else
                 {
-                    kHelper.EasyLog("You cannot go the waypoint because you are targeted by Zombies!", log);
+                    KHelper.EasyLog("You cannot go the waypoint because you are targeted by Zombies!", log);
                 }
 
 

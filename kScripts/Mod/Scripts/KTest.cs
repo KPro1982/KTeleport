@@ -29,9 +29,9 @@ public class MinEventActionTest : MinEventActionBase
 
                 entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();               
                 nearbyEnemies = EnemyActivity.GetSurroundingEntities(entityPlayer, new Vector3(50f, 50f, 50f));
-                kHelper.EasyLog($"Number of Nearby Enemies: {nearbyEnemies.Count}", log);
+                KHelper.EasyLog($"Number of Nearby Enemies: {nearbyEnemies.Count}", log);
                 nearbyEnemies = EnemyActivity.GetTargetingEntities(entityPlayer, new Vector3(50f, 50f, 50f));
-                kHelper.EasyLog($"Number of Nearby Enemies targing you: {nearbyEnemies.Count}", log);
+                KHelper.EasyLog($"Number of Nearby Enemies targing you: {nearbyEnemies.Count}", log);
             }
             else
             {

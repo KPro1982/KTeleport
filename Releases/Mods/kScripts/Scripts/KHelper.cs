@@ -14,7 +14,7 @@ namespace kScripts
         Chat,
         Both
     }
-    public static class kHelper
+    public static class KHelper
     {
         public static void ChatOutput(EntityPlayer _entityPlayer, string msg)
         {
@@ -25,10 +25,23 @@ namespace kScripts
         {
 
 
+            if (log == LogLevel.Both || log == LogLevel.Chat)
+            {
+                GameManager.Instance.ChatMessageServer(_cInfo: null, _chatType: EChatType.Global, _senderEntityId: 0, _msg: msg, _mainName: null, _localizeMain: false, _recipientEntityIds: null);
+            } else if (log == LogLevel.Both || log == LogLevel.File)
+            {
+                LogAnywhere.Log(msg);
+            }
+           
 
-            GameManager.Instance.ChatMessageServer(_cInfo: null, _chatType: EChatType.Global, _senderEntityId: 0, _msg: msg, _mainName: null, _localizeMain: false, _recipientEntityIds: null);
-            LogAnywhere.Log(msg);
+        }
 
+        public static void EasyLog(object obj, LogLevel log)
+        {
+            if (log == LogLevel.File || log == LogLevel.Both)
+            {
+                LogAnywhere.Log(obj);
+            }
         }
 
         private static String BuildConsoleCommand(Vector3i _location, bool _onground)

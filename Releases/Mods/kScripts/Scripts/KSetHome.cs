@@ -6,14 +6,14 @@ using System.Collections.Generic;
 
 namespace kScripts
 {
-	public class k_sethome : ConsoleCmdAbstract
+	public class KSetHome : ConsoleCmdAbstract
 	{
-		private EntityPlayer entityPlayer;
-		public kTeleportObject saveTeleport = new kTeleportObject();
+		private EntityPlayer _entityPlayer;
+		public KTeleportObject SaveTeleport = new KTeleportObject();
 
-		public override string[] GetCommands() => new[] { "k_sethome" };
+		public override string[] GetCommands() => new[] { "KSetHome" };
 
-		public override string GetDescription() => "Set home base location to be used with k_gohome.";
+		public override string GetDescription() => "Set home base location to be used with KGoHome.";
 
 		public override void Execute(List<string> _params, CommandSenderInfo _senderInfo)
 		{
@@ -31,9 +31,9 @@ namespace kScripts
 
 				if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
 				{
-					entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-					saveTeleport.Add("home", entityPlayer.GetBlockPosition());
-					kHelper.ChatOutput(entityPlayer, "Home location stored.");
+					_entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+					SaveTeleport.Add("home", _entityPlayer.GetBlockPosition());
+					KHelper.ChatOutput(_entityPlayer, "Home location stored.");
 				}
 				else
 				{
@@ -43,14 +43,14 @@ namespace kScripts
 			}
 			else
 			{
-				entityPlayer = GameManager.Instance.World.Players.dict[_senderInfo.RemoteClientInfo.entityId];
+				_entityPlayer = GameManager.Instance.World.Players.dict[_senderInfo.RemoteClientInfo.entityId];
 			}
 
 
 		}
 		void SaveLocation(string _name, Vector3i _location)
 		{
-			saveTeleport.Add(_name, _location);
+			SaveTeleport.Add(_name, _location);
 			return;
 
 		}

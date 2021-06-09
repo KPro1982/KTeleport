@@ -11,6 +11,7 @@
         <AssemblyName>kScripts</AssemblyName>
         <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
+        <LangVersion>8</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -57,7 +58,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Mod\Scripts\EnemyActivity.cs" />
-        <Compile Include="Mod\Scripts\KHelper_S.cs" />
+        <Compile Include="Mod\Scripts\KHelper.cs" />
         <Compile Include="Mod\Scripts\KTeleportObject.cs" />
         <Compile Include="Mod\Scripts\KDisplace.cs" />
         <Compile Include="Mod\Scripts\KReturn.cs" />

@@ -18,7 +18,7 @@ class MinEventActionReturn : MinEventActionBase
     public override void Execute(MinEventParams _params)
     {
         entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-        kTeleportObject teleportObject = new kTeleportObject();
+        KTeleportObject teleportObject = new KTeleportObject();
 
         if (command == null)
         {
@@ -33,11 +33,11 @@ class MinEventActionReturn : MinEventActionBase
                 if (teleportObject.TryGetLocation("return", out var targetV3i))
                 {
                     teleportObject.Add("return", returnV3i);
-                    kHelper.Teleport(targetV3i);
+                    KHelper.Teleport(targetV3i);
                 }
                 else
                 {
-                    kHelper.ChatOutput(entityPlayer, "No return location was stored.");
+                    KHelper.ChatOutput(entityPlayer, "No return location was stored.");
                 }
             }
             else

@@ -12,6 +12,8 @@ public class MinEventActionGoWaypoint : MinEventActionBase
 {
 
     string command;
+
+    private LogLevel log = LogLevel.Both;
     //ClientInfo _cInfo;
     private EntityPlayer entityPlayer;
     public kTeleportObject saveTeleport = new kTeleportObject();
@@ -49,7 +51,7 @@ public class MinEventActionGoWaypoint : MinEventActionBase
                 }
                 else
                 {
-                    kHelper.EasyLog("You cannot go the waypoint because you are targeted by Zombies!");
+                    kHelper.EasyLog("You cannot go the waypoint because you are targeted by Zombies!", log);
                 }
 
 

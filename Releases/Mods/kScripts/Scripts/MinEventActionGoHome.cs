@@ -12,6 +12,8 @@ public class MinEventActionGoHome : MinEventActionBase
 {
 
     string command;
+
+    private LogLevel log = LogLevel.Both;
     //ClientInfo _cInfo;
     private EntityPlayer entityPlayer;
     public kTeleportObject saveTeleport = new kTeleportObject();
@@ -48,7 +50,7 @@ public class MinEventActionGoHome : MinEventActionBase
                     }
                 } else
                 {
-                    kHelper.EasyLog($"You cannot go home because you are {nearbyEnemies.Count} Zombies targeting you!");
+                    kHelper.EasyLog($"You cannot go home because you are {nearbyEnemies.Count} Zombies targeting you!", log);
                 }
 
 

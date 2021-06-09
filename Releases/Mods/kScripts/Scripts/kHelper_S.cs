@@ -7,6 +7,13 @@ using UnityEngine;
 
 namespace kScripts
 {
+    public enum LogLevel
+    {
+        None,
+        File,
+        Chat,
+        Both
+    }
     public static class kHelper
     {
         public static void ChatOutput(EntityPlayer _entityPlayer, string msg)
@@ -14,8 +21,11 @@ namespace kScripts
             GameManager.Instance.ChatMessageServer(_cInfo: null, _chatType: EChatType.Global, _senderEntityId: _entityPlayer.entityId, _msg: msg, _mainName: _entityPlayer.EntityName, _localizeMain: false, _recipientEntityIds: null);
         }
 
-        public static void EasyLog(string msg)
+        public static void EasyLog(string msg, LogLevel log)
         {
+
+
+
             GameManager.Instance.ChatMessageServer(_cInfo: null, _chatType: EChatType.Global, _senderEntityId: 0, _msg: msg, _mainName: null, _localizeMain: false, _recipientEntityIds: null);
             LogAnywhere.Log(msg);
 

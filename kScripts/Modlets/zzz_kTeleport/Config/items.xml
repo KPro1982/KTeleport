@@ -109,76 +109,8 @@
 		<triggered_effect trigger="onSelfPrimaryActionEnd" action="Return, Mods" command="KProReturn"/>
 	</effect_group>
 </item>
-	<item name="KProSetWaypoint">
-		<property name="DisplayType" value="ammoArrow"/>
-		<property name="Tags" value="ammo,ranged,attAgility,perkArchery,perkPenetrator"/>
-		<property name="Meshfile" value="#Other/Items?Weapons/Ranged/Bows/WoodenBow/arrowPrefab.prefab"/>
-		<property name="HoldType" value="45"/>
-		<property name="HandMeshfile" value="#Other/Items?Misc/sackPrefab.prefab"/>
-		<property name="DropMeshfile" value="#Other/Items?Misc/sack_droppedPrefab.prefab"/>
-		<property name="IsSticky" value="true"/>
-		<property name="StickyOffset" value=".5"/>
-		<property name="StickyColliderUp" value="2"/>
-		<property name="StickyColliderRadius" value=".05"/>
-		<property name="StickyColliderLength" value="1"/>
-		<property name="Material" value="Mwood"/>
-		<property name="Stacknumber" value="150"/> <!-- STK ammo low -->
-		<property name="FuelValue" value="25"/>
-		<property name="EconomicValue" value="12"/>
-		<property name="EconomicBundleSize" value="5"/>
-		<property name="Group" value="Ammo/Weapons,Basics"/>
-		<property class="Action1">
-			<property name="Class" value="Projectile"/>
-			<property name="Explosion.ParticleIndex" value="0"/> <!-- no expl. -->
-			<property name="FlyTime" value="0"/>
-			<property name="Gravity" value="-4"/>
-			<property name="LifeTime" value="14"/>
-		</property>
 
-		<effect_group name="ammoArrowStone" tiered="false"> <!-- ammoArrowStone -->
-			<passive_effect name="EntityDamage" operation="base_set" value="0"/>
-			<passive_effect name="BlockDamage" operation="base_set" value="0"/>
-			<passive_effect name="DamageModifier" operation="perc_set" value="0" tags="wood"/>
-			<passive_effect name="DamageModifier" operation="perc_set" value="0" tags="earth,metal,cloth"/>
-			<passive_effect name="ProjectileVelocity" operation="base_set" value="45"/>
-			<triggered_effect trigger="onSelfPrimaryActionEnd" action="SetWaypoint, Mods" command="KProSetWaypoint"/>
-		</effect_group>
-	</item>
-	<item name="KProGoWaypoint">
-		<property name="DisplayType" value="ammoArrow"/>
-		<property name="Tags" value="ammo,ranged,attAgility,perkArchery,perkPenetrator"/>
-		<property name="Meshfile" value="#Other/Items?Weapons/Ranged/Bows/WoodenBow/arrowPrefab.prefab"/>
-		<property name="HoldType" value="45"/>
-		<property name="HandMeshfile" value="#Other/Items?Misc/sackPrefab.prefab"/>
-		<property name="DropMeshfile" value="#Other/Items?Misc/sack_droppedPrefab.prefab"/>
-		<property name="IsSticky" value="true"/>
-		<property name="StickyOffset" value=".5"/>
-		<property name="StickyColliderUp" value="2"/>
-		<property name="StickyColliderRadius" value=".05"/>
-		<property name="StickyColliderLength" value="1"/>
-		<property name="Material" value="Mwood"/>
-		<property name="Stacknumber" value="150"/> <!-- STK ammo low -->
-		<property name="FuelValue" value="25"/>
-		<property name="EconomicValue" value="12"/>
-		<property name="EconomicBundleSize" value="5"/>
-		<property name="Group" value="Ammo/Weapons,Basics"/>
-		<property class="Action1">
-			<property name="Class" value="Projectile"/>
-			<property name="Explosion.ParticleIndex" value="0"/> <!-- no expl. -->
-			<property name="FlyTime" value="0"/>
-			<property name="Gravity" value="-4"/>
-			<property name="LifeTime" value="14"/>
-		</property>
 
-		<effect_group name="ammoArrowStone" tiered="false"> <!-- ammoArrowStone -->
-			<passive_effect name="EntityDamage" operation="base_set" value="0"/>
-			<passive_effect name="BlockDamage" operation="base_set" value="0"/>
-			<passive_effect name="DamageModifier" operation="perc_set" value="0" tags="wood"/>
-			<passive_effect name="DamageModifier" operation="perc_set" value="0" tags="earth,metal,cloth"/>
-			<passive_effect name="ProjectileVelocity" operation="base_set" value="45"/>
-			<triggered_effect trigger="onSelfPrimaryActionEnd" action="GoWaypoint, Mods" command="KProGoWaypoint"/>
-		</effect_group>
-	</item>
 <item name="gunTeleport">
 
 	<property name="Tags" value="weapon,ranged,bowDrawPenalty,archery,bow,attAgility,perkArchery,canHaveCosmetic"/>
@@ -205,7 +137,7 @@
 		<!-- Catapult might not be the best name for it but it can also be used for a slingshot -->
 		<property name="Hitmask_override" value="Arrow"/>
 		<property name="Delay" value="1"/> <!-- obsolete if rounds per minute exists -->
-		<property name="Magazine_items" value="KPro_CustomRadial,KProGoHome,KProReturn,KProSetHome,KProSetWaypoint,KProGoWaypoint"/>
+		<property name="Magazine_items" value="KProCustomRadial,KProGoHome,KProReturn,KProSetHome"/>
 		<!-- <property name="Reload_time" value=".9"/> -->
 		<property name="Sound_start" value="bow_fire"/>
 		<property name="Sound_repeat" value=""/>

@@ -1,0 +1,13 @@
+Key,File,Type,UsedInMainMenu,NoTranslate,english
+KProGoHome,Items,Melee,,,"Go Home"
+KProGoHomeDesc,Items,Melee,,,"Use this to teleport home."
+KProSetHome,Items,Melee,,,"Set Home."
+KProSetHomeDesc,Items,Melee,,,"Use this to set your home location."
+KProReturn,Items,Melee,,,"Return."
+KProReturnDesc,Items,Melee,,,"Use this to return to your prior location."
+KProSetWaypoint,Items,Melee,,,"Set Waypoint."
+KProSetWaypointDesc,Items,Melee,,,"Use this to save your current location."
+KProGoWaypoint,Items,Melee,,,"Go to Waypoint."
+KProGoWaypointDesc,Items,Melee,,,"Use this to return to your prior location."
+gunTeleport,Items,Melee,,,"A strange looking object."
+gunTeleportDesc,Items,Melee,,,"It looks like it could take you places."

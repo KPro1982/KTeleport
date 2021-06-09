@@ -5,25 +5,25 @@ public class MinEventActionSetWaypoint : MinEventActionBase
 {
     string command;
     //ClientInfo _cInfo;
-    private EntityPlayer entityPlayer;
-    public KTeleportObject saveTeleport = new KTeleportObject();
+    private EntityPlayer _entityPlayer;
+    public KTeleportObject SaveTeleport = new KTeleportObject();
 
     public override void Execute(MinEventParams _params)
     {
-
-
-
+        LogLevel log = LogLevel.Both;
+        
         if (command == null)
         {
             return;
         }
         else
         {
+            KHelper.EasyLog($"SetWayPoint.Execute() -> Command: {command}, _params: {_params}", log);
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-                saveTeleport.Add("waypoint", entityPlayer.GetBlockPosition());
-                KHelper.ChatOutput(entityPlayer, "Waypoint location stored.");
+                _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+                SaveTeleport.Add("waypoint", _entityPlayer.GetBlockPosition());
+                KHelper.ChatOutput(_entityPlayer, "Waypoint location stored.");
             }
             else
             {
@@ -34,9 +34,11 @@ public class MinEventActionSetWaypoint : MinEventActionBase
 
     public override bool ParseXmlAttribute(XmlAttribute _attribute)
     {
+        LogLevel log = LogLevel.Both;
         bool xmlAttribute = base.ParseXmlAttribute(_attribute);
         if (xmlAttribute || !(_attribute.Name == "command"))
         {
+            KHelper.EasyLog($"SetWayPoint.ParseXmlAttribute() -> xmlAttribute: {xmlAttribute}, _attribute: {_attribute}", log);
             return xmlAttribute;
         }
 

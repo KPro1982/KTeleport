@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+	<ModInfo>
+		<Name value="Kpro Teleport Object" />
+		<Description value="a modlet that adds basic teleport functionality to an object." />
+		<Author value="kpro"/>
+		<Version value="A19.3" />
+	</ModInfo>
+</xml>

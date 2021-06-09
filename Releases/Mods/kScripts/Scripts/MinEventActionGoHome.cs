@@ -15,13 +15,11 @@ public class MinEventActionGoHome : MinEventActionBase
 
     private LogLevel log = LogLevel.Both;
     //ClientInfo _cInfo;
-    private EntityPlayer entityPlayer;
-    public KTeleportObject saveTeleport = new KTeleportObject();
+    private EntityPlayer _entityPlayer;
+    public KTeleportObject SaveTeleport = new KTeleportObject();
 
     public override void Execute(MinEventParams _params)
     {
-        List<Entity> nearbyEnemies;
-
         if (command == null)
         {
             return;
@@ -30,13 +28,13 @@ public class MinEventActionGoHome : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+                _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
                 KTeleportObject teleportObject = new KTeleportObject();
 
 
-                Vector3i returnV3i = entityPlayer.GetBlockPosition();
+                Vector3i returnV3i = _entityPlayer.GetBlockPosition();
 
-                nearbyEnemies = EnemyActivity.GetTargetingEntities(entityPlayer, new Vector3(50f, 50f, 50f));
+                var nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
                 if(nearbyEnemies.Count == 0)
                 {
                     if (teleportObject.TryGetLocation("home", out var targetV3i))
@@ -46,7 +44,7 @@ public class MinEventActionGoHome : MinEventActionBase
                     }
                     else
                     {
-                        KHelper.ChatOutput(entityPlayer, "You cannot go home as there is no home location stored.");
+                        KHelper.ChatOutput(_entityPlayer, "You cannot go home as there is no home location stored.");
                     }
                 } else
                 {
@@ -65,7 +63,7 @@ public class MinEventActionGoHome : MinEventActionBase
     public override bool ParseXmlAttribute(XmlAttribute _attribute)
     {
         bool xmlAttribute = base.ParseXmlAttribute(_attribute);
-        if (xmlAttribute || !(_attribute.Name == "command"))
+        if (xmlAttribute || _attribute.Name != "command")
         {
             return xmlAttribute;
         }

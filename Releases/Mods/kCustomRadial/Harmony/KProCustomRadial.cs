@@ -92,11 +92,9 @@ public class KProCustomRadial
 			ItemClass itemClass = ItemClass.GetItemClass(magazineItemNames[_commandIndex], false);
 			if (itemClass != null)
 			{
-				KHelper.EasyLog($"itemClass.Name {itemClass.Name}", log);
 				bool result = itemClass.HasTrigger(MinEventTypes.onSelfPrimaryActionEnd);
-				KHelper.EasyLog($"{itemClass.Name} has a trigger: {result}", log);
 				var num = itemClass.Effects.EffectGroups.Count;
-				KHelper.EasyLog($"Effects group has {num} elements.", log);
+				KHelper.EasyLog($"KProHandleRadialCommand -> {magazineItemNames[_commandIndex]} effects group has {num} elements.", log);
 				if (num == 1)
 				{
 					itemClass.FireEvent(MinEventTypes.onSelfPrimaryActionEnd,

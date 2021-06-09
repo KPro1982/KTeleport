@@ -15,13 +15,11 @@ public class MinEventActionGoWaypoint : MinEventActionBase
 
     private LogLevel log = LogLevel.Both;
     //ClientInfo _cInfo;
-    private EntityPlayer entityPlayer;
-    public KTeleportObject saveTeleport = new KTeleportObject();
+    private EntityPlayer _entityPlayer;
+    public KTeleportObject SaveTeleport = new KTeleportObject();
 
     public override void Execute(MinEventParams _params)
     {
-        List<Entity> nearbyEnemies;
-
         if (command == null)
         {
             return;
@@ -30,14 +28,14 @@ public class MinEventActionGoWaypoint : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+                _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
                 KTeleportObject teleportObject = new KTeleportObject();
 
 
-                Vector3i returnV3i = entityPlayer.GetBlockPosition();
+                Vector3i returnV3i = _entityPlayer.GetBlockPosition();
 
-                nearbyEnemies = EnemyActivity.GetSurroundingEntities(entityPlayer, new Vector3(30f, 30f, 30f));
-                if (nearbyEnemies.Count == 0)
+                var nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
+                if(nearbyEnemies.Count == 0)
                 {
                     if (teleportObject.TryGetLocation("waypoint", out var targetV3i))
                     {
@@ -46,12 +44,11 @@ public class MinEventActionGoWaypoint : MinEventActionBase
                     }
                     else
                     {
-                        KHelper.ChatOutput(entityPlayer, "You cannot go to the waypoint as there is no waypoint location stored.");
+                        KHelper.ChatOutput(_entityPlayer, "You cannot go home as there is no home location stored.");
                     }
-                }
-                else
+                } else
                 {
-                    KHelper.EasyLog("You cannot go the waypoint because you are targeted by Zombies!", log);
+                    KHelper.EasyLog($"You cannot go home because you are {nearbyEnemies.Count} Zombies targeting you!", log);
                 }
 
 
@@ -66,7 +63,7 @@ public class MinEventActionGoWaypoint : MinEventActionBase
     public override bool ParseXmlAttribute(XmlAttribute _attribute)
     {
         bool xmlAttribute = base.ParseXmlAttribute(_attribute);
-        if (xmlAttribute || !(_attribute.Name == "command"))
+        if (xmlAttribute || _attribute.Name != "command")
         {
             return xmlAttribute;
         }

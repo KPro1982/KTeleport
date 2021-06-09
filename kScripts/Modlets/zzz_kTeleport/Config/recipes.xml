@@ -11,7 +11,7 @@
 	<recipe name="KProReturn" count="10" craft_time = "1">
 		<ingredient name="resourceRockSmall" count="1"/>		
 	</recipe>
-		<recipe name="gunTeleport" count="1" craft_time = "1">
+		<recipe name="KTeleport" count="1" craft_time = "1">
 		<ingredient name="resourceRockSmall" count="1"/>		
 	</recipe>
 	

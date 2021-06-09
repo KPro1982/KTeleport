@@ -1,44 +1,56 @@
 <kpro>
+<!-- 
+This xml consists of two components.  The first are teleport actions, which are items that reference C# components in kScripts.dll. 
+The second component is the teleport object, which informs kCustomRadial which actions to load into the radial dial of the teleport object.
+-->
 
+
+<!-- Teleport Actions -->
+	
 <append xpath="/items">
-
-<item name="KProGoHome">
-	<property name="Extends" value="ammoArrowStone"/>
-	<effect_group name="ammoArrowStone" tiered="false"> <!-- ammoArrowStone -->
-		<triggered_effect trigger="onSelfPrimaryActionEnd" action="GoHome, Mods" command="KProGoHome"/>
-	</effect_group>
-</item>
-
-<item name="KProSetHome">
-	<property name="Extends" value="ammoArrowStone"/>
-	<effect_group name="ammoArrowStone" tiered="false"> <!-- ammoArrowStone -->
-		<triggered_effect trigger="onSelfPrimaryActionEnd" action="SetHome, Mods" command="KProSetHome"/>
-	</effect_group>
-</item>
-
+	<item name="KProGoHome">
+		<property name="Extends" value="ammoArrowStone"/>
+		<effect_group name="KProTeleportProtocol" tiered="false"> 
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="GoHome, Mods" command="KProGoHome"/>
+		</effect_group>
+	</item>
+	
+	<item name="KProSetHome">
+		<property name="Extends" value="ammoArrowStone"/>
+		<effect_group name="KProTeleportProtocol" tiered="false"> 
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="SetHome, Mods" command="KProSetHome"/>
+		</effect_group>
+	</item>
+	
 	<item name="KProReturn">
 		<property name="Extends" value="ammoArrowStone"/>
-		<effect_group name="ammoArrowStone" tiered="false"> <!-- ammoArrowStone -->
+		<effect_group name="KProTeleportProtocol" tiered="false"> 
 			<triggered_effect trigger="onSelfPrimaryActionEnd" action="Return, Mods" command="KProSetHome"/>
 		</effect_group>
 	</item>
 
+	<item name="KProSetWaypoint">
+		<property name="Extends" value="ammoArrowStone"/>
+		<effect_group name="KProTeleportProtocol" tiered="false">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="SetWaypoint, Mods" command="KProSetHome"/>
+		</effect_group>
+	</item>
 
-<item name="gunTeleport">
-	<property name="Extends" value="gunBowT0PrimitiveBow"/>
-	<property class="Action0">
-		<property name="Magazine_items" value="KProCustomRadial,KProGoHome,KProReturn,KProSetHome"/>
-		<!-- <property name="Reload_time" value=".9"/> -->
-	</property>
+	<item name="KProGoWaypoint">
+		<property name="Extends" value="ammoArrowStone"/>
+		<effect_group name="KProTeleportProtocol" tiered="false">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="GoWaypoint, Mods" command="KProSetHome"/>
+		</effect_group>
+	</item>
 	
-		
-</item>
-
+<!--  Teleport Object>  -->
+	
+	<item name="KTeleport">
+		<property name="Extends" value="gunBowT0PrimitiveBow"/>
+		<property class="Action0">
+			<property name="Magazine_items" value="KProCustomRadial,KProGoHome,KProReturn,KProSetHome,KProSetWaypoint,KProGoWaypoint"/>  <!-- value="" must contain all of the actions defined above -->
+		</property>
+	</item>
 </append>
-
-
-
-
-
 
 </kpro>

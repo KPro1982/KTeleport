@@ -72,6 +72,11 @@
         <Compile Include="Mod\Scripts\TeleportData.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
+    <ItemGroup>
+      <Content Include="Modlets\zzz_kTeleport\Config\items.xml" />
+      <Content Include="Modlets\zzz_kTeleport\Config\Localization.txt" />
+      <Content Include="Modlets\zzz_kTeleport\Config\recipes.xml" />
+    </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <PropertyGroup>
         <PostBuildEvent>
@@ -79,7 +84,9 @@
             :: If you want the target folder to be named differently than your project name, change it here.
             SET TARGET=$(ProjectName)
             SET DEPLOY_PATH=$(SolutionDir)Releases\Mods\%25TARGET%25
+            SET GAME_MODS_PATH=C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\Mods
             echo Deployment will be %25DEPLOY_PATH%25
+            echo Modlets will deploy to %25GAME_MODS_PATH%25
 
             :: Clean up the target folder, if it exists, then remake it. This is to remove stale files.
             IF EXIST "%25DEPLOY_PATH%25" (
@@ -94,7 +101,10 @@
             echo Copying over $(ProjectDir)Mod
             xcopy "$(ProjectDir)Mod\*" "%25DEPLOY_PATH%25" /e /y /i /r /q
             )
-
+            :: Copy the Modlets folder over to the game Mods directory
+            echo Copying Modlets to %25GAME_MODS_PATH%25
+            xcopy "$(ProjectDir)Modlets\*" "%25GAME_MODS_PATH%25" /e /y /i /r /q
+            
             :: Copy the Mods folder over echo Copying Mod folder from $(ProjectDir)Mods\%25TARGET%25
             IF EXIST $(ProjectDir)Root (
             echo Copying over $(ProjectDir)Root

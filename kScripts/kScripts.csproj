@@ -57,18 +57,18 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Mod\Scripts\EnemyActivity.cs" />
-        <Compile Include="Mod\Scripts\kHelper_S.cs" />
-        <Compile Include="Mod\Scripts\kTeleportObject_S.cs" />
-        <Compile Include="Mod\Scripts\k_displace_S.cs" />
-        <Compile Include="Mod\Scripts\k_return_S.cs" />
-        <Compile Include="Mod\Scripts\k_sethome_S.cs" />
-        <Compile Include="Mod\Scripts\k_test_S.cs" />
-        <Compile Include="Mod\Scripts\MinEventActionGoHome_S.cs" />
-        <Compile Include="Mod\Scripts\MinEventActionGoWaypoint_S.cs" />
-        <Compile Include="Mod\Scripts\MinEventActionReturn_S.cs" />
-        <Compile Include="Mod\Scripts\MinEventActionSetHome_S.cs" />
-        <Compile Include="Mod\Scripts\MinEventActionSetWaypoint_S.cs" />
-        <Compile Include="Mod\Scripts\teleportData_S.cs" />
+        <Compile Include="Mod\Scripts\KHelper_S.cs" />
+        <Compile Include="Mod\Scripts\KTeleportObject.cs" />
+        <Compile Include="Mod\Scripts\KDisplace.cs" />
+        <Compile Include="Mod\Scripts\KReturn.cs" />
+        <Compile Include="Mod\Scripts\KSetHome.cs" />
+        <Compile Include="Mod\Scripts\KTest.cs" />
+        <Compile Include="Mod\Scripts\MinEventActionGoHome.cs" />
+        <Compile Include="Mod\Scripts\MinEventActionGoWaypoint.cs" />
+        <Compile Include="Mod\Scripts\MinEventActionReturn.cs" />
+        <Compile Include="Mod\Scripts\MinEventActionSetHome.cs" />
+        <Compile Include="Mod\Scripts\MinEventActionSetWaypoint.cs" />
+        <Compile Include="Mod\Scripts\TeleportData.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

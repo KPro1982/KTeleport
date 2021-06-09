@@ -18,7 +18,10 @@ namespace kScripts
     {
         public static void ChatOutput(EntityPlayer _entityPlayer, string msg)
         {
-            GameManager.Instance.ChatMessageServer(_cInfo: null, _chatType: EChatType.Global, _senderEntityId: _entityPlayer.entityId, _msg: msg, _mainName: _entityPlayer.EntityName, _localizeMain: false, _recipientEntityIds: null);
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.ChatMessageServer(_cInfo: null, _chatType: EChatType.Global, _senderEntityId: _entityPlayer.entityId, _msg: msg, _mainName: _entityPlayer.EntityName, _localizeMain: false, _recipientEntityIds: null);
+            }
         }
 
         public static void EasyLog(string msg, LogLevel log)
@@ -27,8 +30,12 @@ namespace kScripts
 
             if (log == LogLevel.Both || log == LogLevel.Chat)
             {
-                GameManager.Instance.ChatMessageServer(_cInfo: null, _chatType: EChatType.Global, _senderEntityId: 0, _msg: msg, _mainName: null, _localizeMain: false, _recipientEntityIds: null);
-            } else if (log == LogLevel.Both || log == LogLevel.File)
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.ChatMessageServer(_cInfo: null, _chatType: EChatType.Global, _senderEntityId: 0, _msg: msg, _mainName: null, _localizeMain: false, _recipientEntityIds: null);
+                }
+            }  
+            if (log == LogLevel.Both || log == LogLevel.File)
             {
                 LogAnywhere.Log(msg);
             }
@@ -58,7 +65,6 @@ namespace kScripts
         public static string GetSavedGameDirectory() 
         {
             string saveDirectoryStr = GameUtils.GetSaveGameDir(null, null);
-            LogAnywhere.Log($"Saved game directory: {saveDirectoryStr}",true);
             return saveDirectoryStr;
         }
     }

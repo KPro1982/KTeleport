@@ -39,6 +39,7 @@ public class MinEventActionGoHome : MinEventActionBase
                 {
                     if (teleportObject.TryGetLocation("home", out var targetV3i))
                     {
+                        KHelper.ChatOutput(_entityPlayer, $"Teleporting to {command}.");
                         teleportObject.Add("return", returnV3i);
                         KHelper.Teleport(targetV3i);
                     }

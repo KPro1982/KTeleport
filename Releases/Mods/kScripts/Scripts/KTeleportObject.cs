@@ -7,8 +7,7 @@ namespace kScripts
 {
 	public class KTeleportObject
 	{
-		// MAKE THIS STATIC AND MAKE SURE TO READ() FROM DISK BEFORE ADD
-
+		
 
 		private List<teleportData> _locations = new List<teleportData>();
 		readonly XmlSerializer _serializer = new XmlSerializer(typeof(List<teleportData>));
@@ -16,13 +15,13 @@ namespace kScripts
 
 		public KTeleportObject()
 		{
-			LogLevel log = LogLevel.File;
+			LogLevel log = LogLevel.None;
 			_savedGameDirectory = KHelper.GetSavedGameDirectory();
 			KHelper.EasyLog($"Creating kTeleportObject. SavedDirectory: {_savedGameDirectory}", log);
 		}
 		public void Add(string _name, Vector3i _loc)
 		{
-			LogLevel log = LogLevel.Both;
+			LogLevel log = LogLevel.None;
 			teleportData data = new teleportData(_name, _loc);
 			Read();
 			if (_locations.Exists(x => x.name.Equals(_name)))
@@ -39,7 +38,7 @@ namespace kScripts
 		}
 		private void Write()
 		{
-			LogLevel log = LogLevel.Both;
+			LogLevel log = LogLevel.None;
 			string savePath = BuildSavePath();
 			KHelper.EasyLog("Write()", log);
 			TextWriter writer = new StreamWriter(savePath, false);
@@ -48,7 +47,7 @@ namespace kScripts
 		}
 		private void Read()
 		{
-			LogLevel log = LogLevel.Both;
+			LogLevel log = LogLevel.None;
 			string savePath = BuildSavePath();
 			FileStream myFileStream = new FileStream(savePath, FileMode.OpenOrCreate);
             try

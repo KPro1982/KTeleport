@@ -37,7 +37,7 @@ public class MinEventActionGoWaypoint : MinEventActionBase
                 var nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
                 if(nearbyEnemies.Count == 0)
                 {
-                    if (teleportObject.TryGetLocation("waypoint", out var targetV3i))
+                    if (teleportObject.TryGetLocation(command, out var targetV3i))
                     {
                         teleportObject.Add("return", returnV3i);
                         KHelper.Teleport(targetV3i);

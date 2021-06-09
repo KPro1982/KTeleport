@@ -16,7 +16,7 @@ public class KProCustomRadial
 		EntityPlayerLocal _epl)
 	{
 		LogLevel log = LogLevel.None;
-		// bool isCustomRadial = false;
+
 		_xuiRadialWindow.ResetRadialEntries();
 		string[] magazineItemNames = _epl.inventory.GetHoldingGun().MagazineItemNames;
 		int preSelectedCommandIndex = -1;
@@ -25,7 +25,7 @@ public class KProCustomRadial
 		KHelper.EasyLog(magazineItemNames, log);
 		if (magazineItemNames[0] == "KProCustomRadial")
 		{
-			// isCustomRadial = true;
+			
 			KHelper.EasyLog("FOUND a CustomRadial", log);
 
 			for (int i = 0; i < magazineItemNames.Length; i++)
@@ -40,12 +40,13 @@ public class KProCustomRadial
 			}
 
 			_xuiRadialWindow.SetCommonData(UIUtils.ButtonIcon.FaceButtonEast,
-				new Action<XUiC_Radial, int, XUiC_Radial.RadialContextAbs>(KProHandleRadialCommand),
+				new Action<XUiC_Radial, int, XUiC_Radial.RadialContextAbs>(KProHandleCustomRadialCommand),
 				new KProRadialContextItem((ItemActionRanged) _epl.inventory.GetHoldingGun()),
 				preSelectedCommandIndex, false);
 		}
 		else
 		{
+
 			for (int i = 0; i < magazineItemNames.Length; i++)
 			{
 				ItemClass itemClass = ItemClass.GetItemClass(magazineItemNames[i], false);
@@ -67,34 +68,44 @@ public class KProCustomRadial
 				}
 			}
 			_xuiRadialWindow.SetCommonData(UIUtils.ButtonIcon.FaceButtonEast,
-				new Action<XUiC_Radial, int, XUiC_Radial.RadialContextAbs>(KProHandleRadialCommand),
+				new Action<XUiC_Radial, int, XUiC_Radial.RadialContextAbs>(KProHandleVanillaRadialCommand),
 				new KProRadialContextItem((ItemActionRanged) _epl.inventory.GetHoldingGun()),
 				preSelectedCommandIndex, false);
 		}
 		return false;
 	}
-
-	public static void KProHandleRadialCommand(XUiC_Radial _sender, int _commandIndex,
+	public static void KProHandleVanillaRadialCommand(
+		XUiC_Radial _sender,
+		int _commandIndex,
 		XUiC_Radial.RadialContextAbs _context)
 	{
-		LogLevel log = LogLevel.None;
-		KHelper.EasyLog($"KProHandleRadialCommand: _commandIndex {_commandIndex}", log);
-		KProRadialContextItem radialContextItem = _context as KProRadialContextItem;
+		KProRadialContextItem vanillaRadialContextItem = _context as KProRadialContextItem;
+		if (!(_context is KProRadialContextItem radialContextItem))
+			return;
+		EntityPlayerLocal entityPlayer = _sender.xui.playerUI.entityPlayer;
+		if (vanillaRadialContextItem.RangedItemAction != entityPlayer.inventory.GetHoldingGun())
+			return;
+		radialContextItem.RangedItemAction.SwapSelectedAmmo((EntityAlive) entityPlayer, _commandIndex);
+	}
+	public static void KProHandleCustomRadialCommand(XUiC_Radial _sender, int _commandIndex,		// Add a standard handle radial command
+		XUiC_Radial.RadialContextAbs _context)
+	{
+		KProRadialContextItem customRadialContextItem = _context as KProRadialContextItem;
 		EntityPlayerLocal entityPlayer = _sender.xui.playerUI.entityPlayer;
 		string[] magazineItemNames = entityPlayer.inventory.GetHoldingGun().MagazineItemNames;
-		if (radialContextItem == null)
+		if (customRadialContextItem == null)
 		{
 			return;
 		}
 
-		if (radialContextItem.RangedItemAction == entityPlayer.inventory.GetHoldingGun())
+		if (customRadialContextItem.RangedItemAction == entityPlayer.inventory.GetHoldingGun())
 		{
 			ItemClass itemClass = ItemClass.GetItemClass(magazineItemNames[_commandIndex], false);
 			if (itemClass != null)
 			{
 				bool result = itemClass.HasTrigger(MinEventTypes.onSelfPrimaryActionEnd);
 				var num = itemClass.Effects.EffectGroups.Count;
-				KHelper.EasyLog($"KProHandleRadialCommand -> {magazineItemNames[_commandIndex]} effects group has {num} elements.", log);
+
 				if (num == 1)
 				{
 					itemClass.FireEvent(MinEventTypes.onSelfPrimaryActionEnd,
@@ -103,7 +114,7 @@ public class KProCustomRadial
 				else
 				{
 					KHelper.EasyLog(
-						$"Error Effects group has {num} elements but should have 1 element.", log);
+						$"Error Effects group has {num} elements but should have 1 element.", LogLevel.File);
 				}
 			}
 		}

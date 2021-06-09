@@ -47,7 +47,7 @@ namespace kScripts
 					LogLevel.Chat);
 				if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
 				{
-					KHelper.Teleport(_newLocationV3I);
+					KHelper.Teleport(_entityPlayer, _newLocationV3I, new Vector3i(0,0,0));
 				}
 				else
 				{

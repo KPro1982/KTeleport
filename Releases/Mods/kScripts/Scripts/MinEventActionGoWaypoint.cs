@@ -40,7 +40,7 @@ public class MinEventActionGoWaypoint : MinEventActionBase
                     if (teleportObject.TryGetLocation(command, out var targetV3i))
                     {
                         teleportObject.Add("return", returnV3i);
-                        KHelper.Teleport(targetV3i);
+                        KHelper.Teleport(_entityPlayer, targetV3i, new Vector3i(100,0,100));
                     }
                     else
                     {

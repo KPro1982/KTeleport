@@ -56,12 +56,19 @@ The second component is the teleport object, which informs kCustomRadial which a
 			<triggered_effect trigger="onSelfPrimaryActionEnd" action="GoWaypoint, Mods" command="waypoint2"/>
 		</effect_group>
 	</item>
+
+	<item name="KProTest">
+		<property name="Extends" value="ammoArrowStone"/>
+		<effect_group name="KProTeleportProtocol" tiered="false">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="Test, Mods" command="waypoint2"/>
+		</effect_group>
+	</item>
 <!--  Teleport Object>  -->
 	
 	<item name="KTeleport">
 		<property name="Extends" value="gunBowT0PrimitiveBow"/>
 		<property class="Action0">
-			<property name="Magazine_items" value="KProCustomRadial,KProGoHome,KProReturn,KProSetHome,KProSetWaypoint1,KProGoWaypoint1,KProSetWaypoint2,KProGoWaypoint2"/>  <!-- value="" must contain all of the actions defined above -->
+			<property name="Magazine_items" value="KProCustomRadial,KProGoHome,KProReturn,KProSetHome,KProSetWaypoint1,KProGoWaypoint1,KProSetWaypoint2,KProGoWaypoint2, KProTest"/>  <!-- value="" must contain all of the actions defined above -->
 		</property>
 	</item>
 </append>

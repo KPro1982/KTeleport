@@ -35,7 +35,7 @@ namespace kScripts
 					if (teleportObject.TryGetLocation("return", out var targetV3I))
                     {
 						teleportObject.Add("return", returnV3I);
-						KHelper.Teleport(targetV3I);
+						KHelper.Teleport(_entityPlayer, targetV3I, new Vector3i(0,0,0));
 					} else
                     {
 						KHelper.ChatOutput(_entityPlayer, "No return location was stored.");

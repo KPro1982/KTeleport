@@ -33,7 +33,7 @@ class MinEventActionReturn : MinEventActionBase
                 if (teleportObject.TryGetLocation("return", out var targetV3i))
                 {
                     teleportObject.Add("return", returnV3i);
-                    KHelper.Teleport(targetV3i);
+                    KHelper.Teleport(entityPlayer, targetV3i, new Vector3i(0,0,0));
                 }
                 else
                 {

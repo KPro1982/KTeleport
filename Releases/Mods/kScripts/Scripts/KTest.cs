@@ -32,6 +32,7 @@ public class MinEventActionTest : MinEventActionBase
                 KHelper.EasyLog($"Number of Nearby Enemies: {nearbyEnemies.Count}", log);
                 nearbyEnemies = EnemyActivity.GetTargetingEntities(entityPlayer, new Vector3(50f, 50f, 50f));
                 KHelper.EasyLog($"Number of Nearby Enemies targing you: {nearbyEnemies.Count}", log);
+                KHelper.Teleport(entityPlayer, new Vector3i(0,0,0), new Vector3i(0,0,0));
             }
             else
             {

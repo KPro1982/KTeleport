@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.SqlServer.Server;
 using UnityEngine;
+using Random = System.Random;
 
 namespace kScripts
 {
@@ -58,9 +60,21 @@ namespace kScripts
          
 
         }
-        public static void Teleport(Vector3i targetLocation, bool onGround = true)
+        public static void Teleport(EntityPlayer _entity, Vector3i targetLocation, Vector3i _fuzzy, bool onGround = true)
         {
-            SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync(BuildConsoleCommand(targetLocation, onGround), null);
+            
+            SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync(BuildConsoleCommand(MakeFuzzy(targetLocation, _fuzzy), onGround), null);
+           
+        }
+        public static Vector3i MakeFuzzy(Vector3i _target, Vector3i _fuzzy)
+        {
+            int _dx, _dz;
+            var rand = new Random();
+            _dx = rand.Next(-_fuzzy.x, +_fuzzy.x);
+            _dz = rand.Next(-_fuzzy.z, +_fuzzy.z);
+
+            return _target + new Vector3i(_dx, 0, _dz);
+
         }
         public static string GetSavedGameDirectory() 
         {

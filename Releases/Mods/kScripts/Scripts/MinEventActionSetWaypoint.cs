@@ -36,7 +36,7 @@ public class MinEventActionSetWaypoint : MinEventActionBase
     {
         LogLevel log = LogLevel.Both;
         bool xmlAttribute = base.ParseXmlAttribute(_attribute);
-        if (xmlAttribute || !(_attribute.Name == "command"))
+        if (xmlAttribute || _attribute.Name != "command")
         {
             KHelper.EasyLog($"SetWayPoint.ParseXmlAttribute() -> xmlAttribute: {xmlAttribute}, _attribute: {_attribute}", log);
             return xmlAttribute;

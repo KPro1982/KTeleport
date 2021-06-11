@@ -28,12 +28,12 @@ class MinEventActionReturn : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                Vector3i returnV3i = entityPlayer.GetBlockPosition();
+                Vector3i returnV3I = entityPlayer.GetBlockPosition();
 
-                if (teleportObject.TryGetLocation("return", out var targetV3i))
+                if (teleportObject.TryGetLocation("return", out var target))
                 {
-                    teleportObject.Add("return", returnV3i);
-                    KHelper.Teleport(entityPlayer, targetV3i, new Vector3i(0,0,0));
+                    teleportObject.Add("return", returnV3I);
+                    target.Teleport(entityPlayer);  //  REFACTOR TELEPORT WITHOUT ENTITYPLAYER  REFACTOR TELEPORT WITHOUT ENTITYPLAYER
                 }
                 else
                 {
@@ -42,7 +42,7 @@ class MinEventActionReturn : MinEventActionBase
             }
             else
             {
-                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), command), false);
+                // SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), command), false);
             }
         }
     }

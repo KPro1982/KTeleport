@@ -8,7 +8,7 @@ using kScripts;
 using UnityEngine;
 
 
-public class MinEventActionGoWaypoint : MinEventActionBase
+public class MinEventActionGoHome : MinEventActionBase
 {
 
     string command;
@@ -32,15 +32,16 @@ public class MinEventActionGoWaypoint : MinEventActionBase
                 KTeleportObject teleportObject = new KTeleportObject();
 
 
-                Vector3i returnV3i = _entityPlayer.GetBlockPosition();
+                Vector3i returnV3I = _entityPlayer.GetBlockPosition();
 
                 var nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
                 if(nearbyEnemies.Count == 0)
                 {
-                    if (teleportObject.TryGetLocation(command, out var targetV3i))
+                    if (teleportObject.TryGetLocation("home", out var target))
                     {
-                        teleportObject.Add("return", returnV3i);
-                        KHelper.Teleport(_entityPlayer, targetV3i, new Vector3i(100,0,100));
+                        KHelper.ChatOutput(_entityPlayer, $"Teleporting to {command}.");
+                        teleportObject.Add("return", returnV3I);
+                        target.Teleport(_entityPlayer);
                     }
                     else
                     {

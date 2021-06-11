@@ -60,16 +60,13 @@
         <Compile Include="Mod\Scripts\EnemyActivity.cs" />
         <Compile Include="Mod\Scripts\KHelper.cs" />
         <Compile Include="Mod\Scripts\KTeleportObject.cs" />
-        <Compile Include="Mod\Scripts\KDisplace.cs" />
-        <Compile Include="Mod\Scripts\KReturn.cs" />
-        <Compile Include="Mod\Scripts\KSetHome.cs" />
-        <Compile Include="Mod\Scripts\KTest.cs" />
-        <Compile Include="Mod\Scripts\MinEventActionGoHome.cs" />
-        <Compile Include="Mod\Scripts\MinEventActionGoWaypoint.cs" />
-        <Compile Include="Mod\Scripts\MinEventActionReturn.cs" />
-        <Compile Include="Mod\Scripts\MinEventActionSetHome.cs" />
-        <Compile Include="Mod\Scripts\MinEventActionSetWaypoint.cs" />
-        <Compile Include="Mod\Scripts\TeleportData.cs" />
+        <Compile Include="Mod\Scripts\Test.cs" />
+        <Compile Include="Mod\Scripts\GoHome.cs" />
+        <Compile Include="Mod\Scripts\GoWaypoint.cs" />
+        <Compile Include="Mod\Scripts\Return.cs" />
+        <Compile Include="Mod\Scripts\SetHome.cs" />
+        <Compile Include="Mod\Scripts\SetWaypoint.cs" />
+        <Compile Include="Mod\Scripts\Portal.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>

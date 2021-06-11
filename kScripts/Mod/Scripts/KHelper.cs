@@ -16,6 +16,12 @@ namespace kScripts
         Chat,
         Both
     }
+
+    public enum YRestraint
+    {
+        OnGround,
+        Unrestrained
+    }
     public static class KHelper
     {
         public static void ChatOutput(EntityPlayer _entityPlayer, string msg)
@@ -53,19 +59,7 @@ namespace kScripts
             }
         }
 
-        private static String BuildConsoleCommand(Vector3i _location, bool _onground)
-        {
-            
-           return  _onground ? $"teleport {_location.x} {_location.z}" : $"teleport {_location.x} {_location.y} {_location.z}";
-         
 
-        }
-        public static void Teleport(EntityPlayer _entity, Vector3i targetLocation, Vector3i _fuzzy, bool onGround = true)
-        {
-            
-            SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync(BuildConsoleCommand(MakeFuzzy(targetLocation, _fuzzy), onGround), null);
-           
-        }
         public static Vector3i MakeFuzzy(Vector3i _target, Vector3i _fuzzy)
         {
             int _dx, _dz;
@@ -76,6 +70,31 @@ namespace kScripts
             return _target + new Vector3i(_dx, 0, _dz);
 
         }
+
+        public static Vector3i MakeFuzzy(Vector3i _target, int _dxz)
+        {
+            return MakeFuzzy(_target, new Vector3i(_dxz, 0, _dxz));
+        }
+       
+
+        public static void SpawnNearbyZombie(EntityPlayer _entityPlayer, String _zombieType, int _num = 1, int _dxz = 10)
+        {
+            int classId = EntityClass.FromString(_zombieType);
+            
+            for (int i = 0; i < _num; i++)
+            {
+                Vector3 spawnLocation = MakeFuzzy(_entityPlayer.GetBlockPosition(), _dxz).ToVector3();
+                Entity entity = EntityFactory.CreateEntity(classId, spawnLocation);
+                if (entity != null)
+                {
+                    GameManager.Instance.World.SpawnEntityInWorld(entity);
+                }
+            }
+            
+         
+
+        }
+            
         public static string GetSavedGameDirectory() 
         {
             string saveDirectoryStr = GameUtils.GetSaveGameDir(null, null);

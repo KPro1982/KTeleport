@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
 using kScripts;
 using UnityEngine;
 using System.Collections.Generic;
@@ -32,7 +33,10 @@ public class MinEventActionTest : MinEventActionBase
                 KHelper.EasyLog($"Number of Nearby Enemies: {nearbyEnemies.Count}", log);
                 nearbyEnemies = EnemyActivity.GetTargetingEntities(entityPlayer, new Vector3(50f, 50f, 50f));
                 KHelper.EasyLog($"Number of Nearby Enemies targing you: {nearbyEnemies.Count}", log);
-                KHelper.Teleport(entityPlayer, new Vector3i(0,0,0), new Vector3i(0,0,0));
+
+                KHelper.SpawnNearbyZombie(entityPlayer,"zombieFootballPlayer", 3);
+               
+
             }
             else
             {

@@ -59,7 +59,7 @@
     <ItemGroup>
         <Compile Include="Mod\Scripts\EnemyActivity.cs" />
         <Compile Include="Mod\Scripts\KHelper.cs" />
-        <Compile Include="Mod\Scripts\KTeleportObject.cs" />
+        <Compile Include="Mod\Scripts\KPortalList.cs" />
         <Compile Include="Mod\Scripts\Test.cs" />
         <Compile Include="Mod\Scripts\GoHome.cs" />
         <Compile Include="Mod\Scripts\GoWaypoint.cs" />

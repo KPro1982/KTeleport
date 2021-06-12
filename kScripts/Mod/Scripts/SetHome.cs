@@ -6,7 +6,6 @@ public class MinEventActionSetHome : MinEventActionBase
     string command;
     //ClientInfo _cInfo;
     private EntityPlayer entityPlayer;
-    public KTeleportObject saveTeleport = new KTeleportObject();
 
     public override void Execute(MinEventParams _params)
     {
@@ -22,7 +21,7 @@ public class MinEventActionSetHome : MinEventActionBase
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
                 entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-                saveTeleport.Add("home", entityPlayer.GetBlockPosition());
+                KPortalList.Add("home", entityPlayer.GetBlockPosition());
                 KHelper.ChatOutput(entityPlayer, "Home location stored.");
             }
             else

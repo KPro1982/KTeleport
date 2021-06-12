@@ -16,7 +16,6 @@ public class MinEventActionGoWaypoint : MinEventActionBase
     private LogLevel log = LogLevel.Both;
     //ClientInfo _cInfo;
     private EntityPlayer _entityPlayer;
-    public KTeleportObject SaveTeleport = new KTeleportObject();
 
     public override void Execute(MinEventParams _params)
     {
@@ -29,7 +28,6 @@ public class MinEventActionGoWaypoint : MinEventActionBase
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
                 _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-                KTeleportObject teleportObject = new KTeleportObject();
 
 
                 Vector3i returnV3i = _entityPlayer.GetBlockPosition();
@@ -37,9 +35,9 @@ public class MinEventActionGoWaypoint : MinEventActionBase
                 var nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
                 if(nearbyEnemies.Count == 0)
                 {
-                    if (teleportObject.TryGetLocation(command, out var target))
+                    if (KPortalList.TryGetLocation(command, out var target))
                     {
-                        teleportObject.Add("return", returnV3i);
+                        KPortalList.Add("return", returnV3i);
                         target.Teleport(_entityPlayer);
                     }
                     else

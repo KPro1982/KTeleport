@@ -6,7 +6,7 @@ public class MinEventActionSetWaypoint : MinEventActionBase
     string command;
     //ClientInfo _cInfo;
     private EntityPlayer entityPlayer;
-    public KTeleportObject saveTeleport = new KTeleportObject();
+
 
     public override void Execute(MinEventParams _params)
     {
@@ -22,7 +22,7 @@ public class MinEventActionSetWaypoint : MinEventActionBase
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
                 entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-                saveTeleport.Add(command, entityPlayer.GetBlockPosition());
+                KPortalList.Add(command, entityPlayer.GetBlockPosition());
                 KHelper.ChatOutput(entityPlayer, $"{command} location stored.");
             }
             else
@@ -35,7 +35,7 @@ public class MinEventActionSetWaypoint : MinEventActionBase
     public override bool ParseXmlAttribute(XmlAttribute _attribute)
     {
         bool xmlAttribute = base.ParseXmlAttribute(_attribute);
-        LogLevel log = LogLevel.File;
+        LogLevel log = LogLevel.None;
         KHelper.EasyLog($"xmlAttribute: {xmlAttribute}, name: {_attribute.Name}, value: {_attribute.Value}, _attribute:{_attribute}", log);
         
         if (xmlAttribute || !(_attribute.Name == "command"))

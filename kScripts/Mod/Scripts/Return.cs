@@ -18,7 +18,6 @@ class MinEventActionReturn : MinEventActionBase
     public override void Execute(MinEventParams _params)
     {
         entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-        KTeleportObject teleportObject = new KTeleportObject();
 
         if (command == null)
         {
@@ -30,9 +29,9 @@ class MinEventActionReturn : MinEventActionBase
             {
                 Vector3i returnV3I = entityPlayer.GetBlockPosition();
 
-                if (teleportObject.TryGetLocation("return", out var target))
+                if (KPortalList.TryGetLocation("return", out var target))
                 {
-                    teleportObject.Add("return", returnV3I);
+                    KPortalList.Add("return", returnV3I);
                     target.Teleport(entityPlayer);  //  REFACTOR TELEPORT WITHOUT ENTITYPLAYER  REFACTOR TELEPORT WITHOUT ENTITYPLAYER
                 }
                 else

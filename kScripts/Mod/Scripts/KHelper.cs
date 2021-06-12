@@ -95,10 +95,6 @@ namespace kScripts
 
         }
             
-        public static string GetSavedGameDirectory() 
-        {
-            string saveDirectoryStr = GameUtils.GetSaveGameDir(null, null);
-            return saveDirectoryStr;
-        }
+
     }
 }

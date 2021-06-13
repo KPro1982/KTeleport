@@ -27,8 +27,9 @@ public class MinEventActionTest : MinEventActionBase
                 nearbyEnemies = EnemyActivity.GetSurroundingEntities(entityPlayer, new Vector3(50f, 50f, 50f));
                 KHelper.EasyLog($"Number of Nearby Enemies: {nearbyEnemies.Count}", log);
                 nearbyEnemies = EnemyActivity.GetTargetingEntities(entityPlayer, new Vector3(50f, 50f, 50f));
-                KHelper.EasyLog($"Number of Nearby Enemies targing you: {nearbyEnemies.Count}", log);
-                KHelper.SpawnNearbyZombie(entityPlayer,"zombieFootballPlayer", 3);
+                KHelper.EasyLog($"Number of Nearby Enemies targeting you: {nearbyEnemies.Count}", log);
+                KHelper.EasyLog($"You are Here: {entityPlayer.GetBlockPosition().x},{entityPlayer.GetBlockPosition().y},{entityPlayer.GetBlockPosition().z}.", log);
+
             }
             else
             {

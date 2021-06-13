@@ -12,12 +12,11 @@ namespace kScripts
     
     public abstract class Portal
     {
-
-        private string _name;
-        private Vector3i _coords;
-        private int _used;
-        private DateTime _timeLastUsed;
-        private DateTime _timeCreated;
+        public string _name;
+        public Vector3i _coords;
+        public int _used;
+        public DateTime _timeLastUsed;
+        public DateTime _timeCreated;
 
 
 
@@ -27,13 +26,13 @@ namespace kScripts
             set => _name = value;
         }
 
-        public Vector3i Coords
-        {
-            get => _coords;
-            set => _coords = value;
-        }
+        // public Vector3i Coords
+        // {
+        //     get => _coords;
+        //     set => _coords = value;
+        // }
 
-        public int Used
+        /*public int Used
         {
             get => _used;
             set => _used = value;
@@ -49,12 +48,12 @@ namespace kScripts
         {
             get => _timeCreated;
             set => _timeCreated = value;
-        }
+        }*/
 
 
         public Portal()
         {
-            this._coords = new Vector3i(0, 0, 0);
+            // Portal._coords = new Vector3i(0, 0, 0);
             this._name = "";
             this._used = 0;
             this._timeCreated = DateTime.Now;
@@ -85,28 +84,27 @@ namespace kScripts
         }
 
 
-
-        void IncrementUsed()
+        protected void IncrementUsed()
         {
-            Used++;
+            _used++;
         }
 
 
-        String BuildConsoleCommand(YRestraint _yRestraint = YRestraint.OnGround)
+        protected String BuildConsoleCommand(Vector3i _target, YRestraint _yRestraint = YRestraint.OnGround)
         {
             return _yRestraint == YRestraint.OnGround
-                ? $"teleport {Coords.x} {Coords.z}"
-                : $"teleport {Coords.x} {Coords.y} {Coords.z}";
+                ? $"teleport {_target.x} {_target.z}"
+                : $"teleport {_target.x} {_target.y} {_target.z}";
         }
 
         public virtual void Teleport(EntityPlayer _entityPlayer, YRestraint _yRestraint = YRestraint.OnGround)
         {
             if (CanTeleport(_entityPlayer))
             {
-                SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync(BuildConsoleCommand(_yRestraint), null);
+                SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync(BuildConsoleCommand(_coords, _yRestraint), null);
                 IncrementUsed();
                 StoreTimeStamp();
-                ImposeConsequences();
+                ImposeConsequences(GameManager.Instance.World.GetPrimaryPlayer());
             }
 
            
@@ -119,10 +117,11 @@ namespace kScripts
 
         }
 
-        protected virtual void ImposeConsequences()
+        protected virtual void ImposeConsequences(EntityPlayer entityPlayer)
         {
         }
-        private void StoreTimeStamp()
+
+        protected void StoreTimeStamp()
         {
             this._timeLastUsed = DateTime.Now;
         }

@@ -20,7 +20,7 @@ public class MinEventActionSetWaypoint : MinEventActionBase
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
                
-                KPortalList.Add(new SimplePoint(command, entityPlayer.GetBlockPosition()));
+                KPortalList.Add(new WayPoint(command, entityPlayer.GetBlockPosition()));
                 KHelper.ChatOutput(entityPlayer, $"{command} location stored.");
             }
             else

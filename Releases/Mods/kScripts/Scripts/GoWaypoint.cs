@@ -28,6 +28,7 @@ public class MinEventActionGoWaypoint : MinEventActionBase
 
                 if (KPortalList.Teleport(entityPlayer, command))
                 {
+                    Debug.Log("This is print in the player.log file");
                     KPortalList.Add(new SimplePoint("return", entityPlayer.GetBlockPosition()));
                 }
                 else

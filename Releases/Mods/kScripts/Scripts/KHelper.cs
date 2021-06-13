@@ -59,41 +59,30 @@ namespace kScripts
             }
         }
 
-
-        public static Vector3i MakeFuzzy(Vector3i _target, Vector3i _fuzzy)
-        {
-            int _dx, _dz;
-            var rand = new Random();
-            _dx = rand.Next(-_fuzzy.x, +_fuzzy.x);
-            _dz = rand.Next(-_fuzzy.z, +_fuzzy.z);
-
-            return _target + new Vector3i(_dx, 0, _dz);
-
-        }
-
-        public static Vector3i MakeFuzzy(Vector3i _target, int _dxz)
-        {
-            return MakeFuzzy(_target, new Vector3i(_dxz, 0, _dxz));
-        }
-       
-
-        public static void SpawnNearbyZombie(EntityPlayer _entityPlayer, String _zombieType, int _num = 1, int _dxz = 10)
+        /*public static void SpawnNearbyZombie(EntityPlayer _entityPlayer, String _zombieType,
+            int _num = 1, int _dxz = 10)
         {
             int classId = EntityClass.FromString(_zombieType);
-            
+
             for (int i = 0; i < _num; i++)
             {
-                Vector3 spawnLocation = MakeFuzzy(_entityPlayer.GetBlockPosition(), _dxz).ToVector3();
+                Vector3 spawnLocation =
+                    MakeFuzzy(_entityPlayer.GetBlockPosition(), _dxz).ToVector3();
                 Entity entity = EntityFactory.CreateEntity(classId, spawnLocation);
                 if (entity != null)
                 {
                     GameManager.Instance.World.SpawnEntityInWorld(entity);
                 }
             }
+        }*/
+        
+       
+
+        
             
          
 
-        }
+        
             
 
     }

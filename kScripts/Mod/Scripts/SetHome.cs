@@ -1,16 +1,19 @@
 ﻿using System.Xml;
 using kScripts;
 
+
+
+
 public class MinEventActionSetHome : MinEventActionBase
 {
     string command;
-    //ClientInfo _cInfo;
-    private EntityPlayer entityPlayer;
+    EntityPlayer entityPlayer;
+     
 
     public override void Execute(MinEventParams _params)
     {
 
-
+        entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
 
         if (command == null)
         {
@@ -20,8 +23,8 @@ public class MinEventActionSetHome : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-                KPortalList.Add("home", entityPlayer.GetBlockPosition());
+                Vector3i targetVector = entityPlayer.GetBlockPosition();
+                KPortalList.Add(new SimplePoint("home", targetVector));
                 KHelper.ChatOutput(entityPlayer, "Home location stored.");
             }
             else

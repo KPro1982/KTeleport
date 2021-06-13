@@ -8,16 +8,13 @@ using System.Collections.Generic;
 public class MinEventActionTest : MinEventActionBase
 {
     string command;
-
-    private LogLevel log = LogLevel.Both;
-    //ClientInfo _cInfo;
     private EntityPlayer entityPlayer;
-
-
+    
     public override void Execute(MinEventParams _params)
     {
+        entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
         List<Entity> nearbyEnemies;
-
+        LogLevel log = LogLevel.Both;
 
         if (command == null)
         {
@@ -27,16 +24,11 @@ public class MinEventActionTest : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-
-                entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();               
                 nearbyEnemies = EnemyActivity.GetSurroundingEntities(entityPlayer, new Vector3(50f, 50f, 50f));
                 KHelper.EasyLog($"Number of Nearby Enemies: {nearbyEnemies.Count}", log);
                 nearbyEnemies = EnemyActivity.GetTargetingEntities(entityPlayer, new Vector3(50f, 50f, 50f));
                 KHelper.EasyLog($"Number of Nearby Enemies targing you: {nearbyEnemies.Count}", log);
-
                 KHelper.SpawnNearbyZombie(entityPlayer,"zombieFootballPlayer", 3);
-               
-
             }
             else
             {

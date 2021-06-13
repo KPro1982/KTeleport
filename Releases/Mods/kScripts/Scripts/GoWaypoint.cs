@@ -12,13 +12,11 @@ public class MinEventActionGoWaypoint : MinEventActionBase
 {
 
     string command;
-
-    private LogLevel log = LogLevel.Both;
-    //ClientInfo _cInfo;
-    private EntityPlayer _entityPlayer;
-
+    private EntityPlayer entityPlayer;
     public override void Execute(MinEventParams _params)
     {
+        entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+        
         if (command == null)
         {
             return;
@@ -27,26 +25,14 @@ public class MinEventActionGoWaypoint : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
 
-
-                Vector3i returnV3i = _entityPlayer.GetBlockPosition();
-
-                var nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
-                if(nearbyEnemies.Count == 0)
+                if (KPortalList.Teleport(entityPlayer, command))
                 {
-                    if (KPortalList.TryGetLocation(command, out var target))
-                    {
-                        KPortalList.Add("return", returnV3i);
-                        target.Teleport(_entityPlayer);
-                    }
-                    else
-                    {
-                        KHelper.ChatOutput(_entityPlayer, "You cannot go home as there is no home location stored.");
-                    }
-                } else
+                    KPortalList.Add(new SimplePoint("return", entityPlayer.GetBlockPosition()));
+                }
+                else
                 {
-                    KHelper.EasyLog($"You cannot go home because you are {nearbyEnemies.Count} Zombies targeting you!", log);
+                    KHelper.ChatOutput(entityPlayer, "You cannot go home as there is no home location stored.");
                 }
 
 

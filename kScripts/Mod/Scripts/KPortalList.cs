@@ -14,12 +14,6 @@ namespace kScripts
         private static List<Portal> _locations = Load();
 
 
-        public static void Add(string _name, Vector3i _loc)
-        {
-            Portal _portal = new Portal(_name, _loc);
-            Add(_portal);
-        }
-
         public static void Add(Portal _portal)
         {
             if (_locations.Exists(x => x.Name.Equals(_portal.Name)))
@@ -31,13 +25,24 @@ namespace kScripts
             Save();
         }
 
-        public static bool TryGetLocation(string _name, out Portal _portal)
+        public static bool Teleport(EntityPlayer _entityPlayer, String _name)
+        {
+            Portal portal;
+            if (TryGetLocation(_name, out portal))
+            {
+                portal.Teleport(_entityPlayer);
+                return true;
+            }
+
+            return false;
+        }
+        private static bool TryGetLocation(string _name, out Portal _portal)
         {
             _portal = _locations.Find(x => x.Name.Equals(_name));
             return _portal != null;
         }
 
-        public static void Save()
+        private static void Save()
         {
             TextWriter writer = new StreamWriter(_savepath, false);
             new XmlSerializer(typeof(List<Portal>)).Serialize(writer, _locations);
@@ -49,8 +54,7 @@ namespace kScripts
             try
             {
                 FileStream myFileStream = new FileStream(_savepath, FileMode.Open);
-                List<Portal> loadedList = (List<Portal>) new XmlSerializer(typeof(List<Portal>)).Deserialize(
-                    myFileStream);
+                var loadedList = TryDeserializeList(myFileStream);
                 myFileStream.Close();
                 return loadedList;
             }
@@ -60,6 +64,23 @@ namespace kScripts
                 myFileStream.Close();
                 return new List<Portal>();
             }
+        }
+
+        private static List<Portal> TryDeserializeList(FileStream myFileStream)
+        {
+            try
+            {
+                List<Portal> loadedList =
+                    (List<Portal>) new XmlSerializer(typeof(List<Portal>)).Deserialize(myFileStream);
+                return loadedList;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("XML Deserialize Error.");
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
         private static string BuildSavePath()

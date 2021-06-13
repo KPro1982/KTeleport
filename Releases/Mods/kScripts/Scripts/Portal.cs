@@ -7,13 +7,16 @@ using UnityEngine;
 
 namespace kScripts
 {
-    public class Portal
+    [XmlInclude(typeof(SimplePoint))]
+    [XmlInclude(typeof(WayPoint))]
+    
+    public abstract class Portal
     {
 
         private string _name;
         private Vector3i _coords;
         private int _used;
-        private DateTime? _timeLastUsed;
+        private DateTime _timeLastUsed;
         private DateTime _timeCreated;
 
 
@@ -39,7 +42,7 @@ namespace kScripts
         public DateTime? TimeLastUsed
         {
             get => _timeLastUsed;
-            set => _timeLastUsed = value;
+            set => _timeLastUsed = (DateTime) value;
         }
 
         public DateTime TimeCreated
@@ -55,20 +58,32 @@ namespace kScripts
             this._name = "";
             this._used = 0;
             this._timeCreated = DateTime.Now;
-            this._timeLastUsed = null;
+            this._timeLastUsed = DateTime.Now;
 
         }
 
         public Portal(string _name, Vector3i _coords)
         {
-            LogAnywhere.Log($"coords from v3i constructor: {_coords.x}, {_coords.y}, {_coords.z}");
+            // LogAnywhere.Log($"coords from v3i constructor: {_coords.x}, {_coords.y}, {_coords.z}");
+            
             this._coords = _coords;
             this._name = _name;
             this._used = 0;
             this._timeCreated = DateTime.Now;
-            this._timeLastUsed = null;
+            this._timeLastUsed = DateTime.Now;
 
         }
+
+        public TimeSpan GetAge()
+        {
+            return (DateTime.Now - _timeCreated);
+        }
+
+        public TimeSpan GetTimeSinceLastUse()
+        {
+            return (DateTime.Now - _timeLastUsed);
+        }
+
 
 
         void IncrementUsed()
@@ -84,17 +99,34 @@ namespace kScripts
                 : $"teleport {Coords.x} {Coords.y} {Coords.z}";
         }
 
-        public void Teleport(EntityPlayer _entity, YRestraint _yRestraint = YRestraint.OnGround)
+        public virtual void Teleport(EntityPlayer _entityPlayer, YRestraint _yRestraint = YRestraint.OnGround)
         {
-            SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync(BuildConsoleCommand(_yRestraint), null);
-            IncrementUsed();
-            StoreTimeStamp();
+            if (CanTeleport(_entityPlayer))
+            {
+                SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync(BuildConsoleCommand(_yRestraint), null);
+                IncrementUsed();
+                StoreTimeStamp();
+                ImposeConsequences();
+            }
+
+           
         }
 
+        protected virtual bool CanTeleport(EntityPlayer _entityPlayer)
+        {
+            // var nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
+            // return (nearbyEnemies.Count == 0);
+            return true;
+        }
+
+        protected virtual void ImposeConsequences()
+        {
+        }
         private void StoreTimeStamp()
         {
             this._timeLastUsed = DateTime.Now;
         }
     }
+
 
 }

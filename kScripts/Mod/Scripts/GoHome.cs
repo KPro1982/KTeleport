@@ -10,15 +10,13 @@ using UnityEngine;
 
 public class MinEventActionGoHome : MinEventActionBase
 {
-
-    string command;
-
-    private LogLevel log = LogLevel.Both;
-    //ClientInfo _cInfo;
-    private EntityPlayer _entityPlayer;
+    EntityPlayer entityPlayer;
+    String command;
 
     public override void Execute(MinEventParams _params)
     {
+         entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+        
         if (command == null)
         {
             return;
@@ -27,29 +25,11 @@ public class MinEventActionGoHome : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-
-                Vector3i returnV3I = _entityPlayer.GetBlockPosition();
-
-                var nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
-                if(nearbyEnemies.Count == 0)
+                if (KPortalList.Teleport(entityPlayer, "home"))
                 {
-                    if (KPortalList.TryGetLocation("home", out var target))
-                    {
-                        KHelper.ChatOutput(_entityPlayer, $"Teleporting to {command}.");
-                        KPortalList.Add("return", returnV3I);
-                        target.Teleport(_entityPlayer);
-                    }
-                    else
-                    {
-                        KHelper.ChatOutput(_entityPlayer, "You cannot go home as there is no home location stored.");
-                    }
-                } else
-                {
-                    KHelper.EasyLog($"You cannot go home because you are {nearbyEnemies.Count} Zombies targeting you!", log);
+                    KPortalList.Add(new SimplePoint("return", entityPlayer.GetBlockPosition()));
                 }
-
-
+               
             }
             else
             {

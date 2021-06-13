@@ -4,14 +4,12 @@ using kScripts;
 public class MinEventActionSetWaypoint : MinEventActionBase
 {
     string command;
-    //ClientInfo _cInfo;
-    private EntityPlayer entityPlayer;
-
+    EntityPlayer entityPlayer;
 
     public override void Execute(MinEventParams _params)
     {
 
-
+       entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
 
         if (command == null)
         {
@@ -21,8 +19,8 @@ public class MinEventActionSetWaypoint : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-                KPortalList.Add(command, entityPlayer.GetBlockPosition());
+               
+                KPortalList.Add(new SimplePoint(command, entityPlayer.GetBlockPosition()));
                 KHelper.ChatOutput(entityPlayer, $"{command} location stored.");
             }
             else

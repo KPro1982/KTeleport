@@ -12,12 +12,12 @@ class MinEventActionReturn : MinEventActionBase
 {
     string command;
     //ClientInfo _cInfo;
-    private EntityPlayer entityPlayer;
 
+    private EntityPlayer entityPlayer;
 
     public override void Execute(MinEventParams _params)
     {
-        entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+       entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
 
         if (command == null)
         {
@@ -29,10 +29,9 @@ class MinEventActionReturn : MinEventActionBase
             {
                 Vector3i returnV3I = entityPlayer.GetBlockPosition();
 
-                if (KPortalList.TryGetLocation("return", out var target))
+                if (KPortalList.Teleport(entityPlayer, "return"))
                 {
-                    KPortalList.Add("return", returnV3I);
-                    target.Teleport(entityPlayer);  //  REFACTOR TELEPORT WITHOUT ENTITYPLAYER  REFACTOR TELEPORT WITHOUT ENTITYPLAYER
+                    KPortalList.Add(new SimplePoint("return", returnV3I));
                 }
                 else
                 {

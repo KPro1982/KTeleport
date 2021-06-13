@@ -54,7 +54,8 @@ namespace kScripts
             try
             {
                 FileStream myFileStream = new FileStream(_savepath, FileMode.Open);
-                var loadedList = TryDeserializeList(myFileStream);
+                List<Portal> loadedList = new List<Portal>();
+                TryDeserializeList(myFileStream, out loadedList);
                 myFileStream.Close();
                 return loadedList;
             }
@@ -66,19 +67,19 @@ namespace kScripts
             }
         }
 
-        private static List<Portal> TryDeserializeList(FileStream myFileStream)
+        private static bool TryDeserializeList(FileStream myFileStream, out List<Portal> loadedList)
         {
             try
             {
-                List<Portal> loadedList =
+                loadedList =
                     (List<Portal>) new XmlSerializer(typeof(List<Portal>)).Deserialize(myFileStream);
-                return loadedList;
+                return true;
             }
-            catch (Exception e)
+            catch 
             {
-                Console.WriteLine("XML Deserialize Error.");
-                Console.WriteLine(e);
-                throw;
+                KHelper.EasyLog("Deserialize Error.", LogLevel.Both);
+                loadedList = new List<Portal>();
+                return false;
             }
 
         }

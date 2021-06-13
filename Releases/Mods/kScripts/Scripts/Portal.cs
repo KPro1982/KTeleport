@@ -114,9 +114,9 @@ namespace kScripts
 
         protected virtual bool CanTeleport(EntityPlayer _entityPlayer)
         {
-            // var nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
-            // return (nearbyEnemies.Count == 0);
-            return true;
+            var nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
+            return (nearbyEnemies.Count == 0);
+
         }
 
         protected virtual void ImposeConsequences()

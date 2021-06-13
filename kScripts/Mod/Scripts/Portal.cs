@@ -116,7 +116,7 @@ namespace kScripts
         {
             var nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
             return (nearbyEnemies.Count == 0);
-            return true;
+
         }
 
         protected virtual void ImposeConsequences()

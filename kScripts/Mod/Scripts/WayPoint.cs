@@ -6,6 +6,7 @@ namespace kScripts
 {
     public class WayPoint : Portal
     {
+        public int BasePercentChanceOfConsequence = 5;
         public WayPoint()
         {
         }
@@ -33,7 +34,13 @@ namespace kScripts
 
         protected override void ImposeConsequences(EntityPlayer _entityPlayer)
         {
-            SpawnHere("zombieStripper", 3);
+            if (DidConsequenceTrigger())
+            {
+                var rand = new Random();
+                var roll = rand.Next(1, 3);
+                SpawnHere("zombieStripper", roll);
+            }
+    
         }
         public Vector3i MakeFuzzy(Vector3i _target, Vector3i _fuzzy)
         {
@@ -55,17 +62,26 @@ namespace kScripts
         {
             int classId = EntityClass.FromString(_zombieType);
 
-
-                Vector3i myCoords = _coords;
-                myCoords.y = 60;
+            for (int i=0; i < _num; i++)
+            {
                 KHelper.EasyLog(_coords, LogLevel.Both);
-                Vector3 spawnLocation = myCoords.ToVector3();
-                Entity entity = EntityFactory.CreateEntity(classId, spawnLocation);
+                Entity entity = EntityFactory.CreateEntity(classId, MakeFuzzy(_coords, _dxz).ToVector3());
                 if (entity != null)
                 {
                     GameManager.Instance.World.SpawnEntityInWorld(entity);
                 }
+            }
+                
             
+        }
+
+        protected bool DidConsequenceTrigger()
+        {
+            int chance = BasePercentChanceOfConsequence * _used;
+            var rand = new Random();
+            var roll = rand.Next(0, 100);
+            KHelper.EasyLog($"You have a {chance}% of a negative consequence. You rolled a {roll}.", LogLevel.Both );
+            return ( roll <= chance);
         }
     }
 }

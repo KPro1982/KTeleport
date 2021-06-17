@@ -86,11 +86,10 @@ namespace kScripts
 
         private static string BuildSavePath()
         {
-            /* string[] gameNameArray = GetSavedGameDirectory().Split('/');
+            string[] gameNameArray = GetSavedGameDirectory().Split('/');
             string gameNameStr = (string) gameNameArray.GetValue(gameNameArray.Length - 1);
-            return GetSavedGameDirectory() + "/" + gameNameStr + "_kTeleport.xml"; */
-
-            return "D:\\Desktop\\7D2D_LOGS\\SaveTest.xml";
+            return GetSavedGameDirectory() + "/" + gameNameStr + "_kTeleport.xml"; 
+            
         }
 
         private static string GetSavedGameDirectory()

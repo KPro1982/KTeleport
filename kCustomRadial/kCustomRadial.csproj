@@ -42,6 +42,9 @@
         <Reference Include="DMT, Version=2.2.7569.26209, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\..\7days-binaries\DMT.dll</HintPath>
         </Reference>
+        <Reference Include="InControl, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\..\7days-binaries\InControl.dll</HintPath>
+        </Reference>
         <Reference Include="LogAnywhere, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\..\7days-binaries\LogAnywhere.dll</HintPath>
         </Reference>

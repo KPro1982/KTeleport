@@ -23,12 +23,11 @@ public class KRadial
                 ItemClass itemClass = ItemClass.GetItemClass(radialItemNames[i], false);
                 if (itemClass != null)
                 {
-                    // int itemCount = _xuiRadialWindow.xui.PlayerInventory.GetItemCount(itemClass.Id);
                     _xuiRadialWindow.CreateRadialEntry(i, itemClass.GetIconName(), "ItemIconAtlas",
                         String.Format(" "), itemClass.GetLocalizedItemName(), false);
                 }
             }
-
+            
             _xuiRadialWindow.SetCommonData(UIUtils.ButtonIcon.FaceButtonEast,
                 new Action<XUiC_Radial, int, XUiC_Radial.RadialContextAbs>(
                     KProHandleCustomRadialCommand),
@@ -93,8 +92,11 @@ public class KRadial
         XUiC_Radial.RadialContextAbs _context)
     {
         KProRadialContextItem customRadialContextItem = _context as KProRadialContextItem;
+
         EntityPlayerLocal entityPlayer = _sender.xui.playerUI.entityPlayer;
-        string[] magazineItemNames = entityPlayer.inventory.GetHoldingGun().MagazineItemNames;
+        // string[] magazineItemNames = entityPlayer.inventory.GetHoldingGun().MagazineItemNames;
+        string[] radialItemNames = GetRadialItems();
+        
         if (customRadialContextItem == null)
         {
             return;
@@ -102,7 +104,7 @@ public class KRadial
 
         if (customRadialContextItem.RangedItemAction == entityPlayer.inventory.GetHoldingGun())
         {
-            ItemClass itemClass = ItemClass.GetItemClass(magazineItemNames[_commandIndex], false);
+            ItemClass itemClass = ItemClass.GetItemClass(radialItemNames[_commandIndex], false);
             if (itemClass != null)
             {
                 bool result = itemClass.HasTrigger(MinEventTypes.onSelfPrimaryActionEnd);

@@ -69,9 +69,6 @@ The second component is the teleport object, which informs kCustomRadial which a
 		<item name="KTeleport">
 			<property name="Extends" value="gunBowT0PrimitiveBow"/>
 			<property name="RadialItems" value="KProGoHome,KProReturn,KProSetHome,KProSetWaypoint1,KProGoWaypoint1,KProSetWaypoint2,KProGoWaypoint2, KProTest"/>
-			<property class="Action0">
-				<property name="Magazine_items" value="KProCustomRadial,KProGoHome,KProReturn,KProSetHome,KProSetWaypoint1,KProGoWaypoint1,KProSetWaypoint2,KProGoWaypoint2, KProTest"/>  <!-- value="" must contain all of the actions defined above -->
-			</property>
 		</item>
 </append>
 

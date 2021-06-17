@@ -6,14 +6,17 @@ public class KRadial
 {
     public static void KSetupRadial(XUiC_Radial _xuiRadialWindow, EntityPlayerLocal _epl)
     {
-        LogLevel log = LogLevel.None;
+        LogLevel log = LogLevel.Both;
 
         _xuiRadialWindow.ResetRadialEntries();
         string[] magazineItemNames = _epl.inventory.GetHoldingGun().MagazineItemNames;
+        string[] radialItemNames = GetRadialItems();
         int preSelectedCommandIndex = -1;
+        
         KHelper.EasyLog($"Before for loop: magazineItemNames.length: {magazineItemNames.Length}", log);
         KHelper.EasyLog(magazineItemNames, log);
-        if (magazineItemNames[0] == "KProCustomRadial")
+        
+        if (radialItemNames.Length > 0)
         {
             KHelper.EasyLog("FOUND a CustomRadial", log);
 
@@ -62,6 +65,16 @@ public class KRadial
                 new KProRadialContextItem((ItemActionRanged) _epl.inventory.GetHoldingGun()),
                 preSelectedCommandIndex, false);
         }
+    }
+
+    private static string[] GetRadialItems()
+    {
+        string strRadialItems = KHelper.GetXmlProperty("KTeleport", "RadialItems");
+        if (strRadialItems.Length > 0)
+        {
+            return strRadialItems.Split(',');
+        }
+        return new[] {""};
     }
 
     public static void KProHandleVanillaRadialCommand(

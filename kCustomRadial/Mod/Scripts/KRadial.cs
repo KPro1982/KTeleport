@@ -23,12 +23,11 @@ public class KRadial
                 ItemClass itemClass = ItemClass.GetItemClass(radialItemNames[i], false);
                 if (itemClass != null)
                 {
-                    // int itemCount = _xuiRadialWindow.xui.PlayerInventory.GetItemCount(itemClass.Id);
                     _xuiRadialWindow.CreateRadialEntry(i, itemClass.GetIconName(), "ItemIconAtlas",
                         String.Format(" "), itemClass.GetLocalizedItemName(), false);
                 }
             }
-
+            
             _xuiRadialWindow.SetCommonData(UIUtils.ButtonIcon.FaceButtonEast,
                 new Action<XUiC_Radial, int, XUiC_Radial.RadialContextAbs>(
                     KProHandleCustomRadialCommand),

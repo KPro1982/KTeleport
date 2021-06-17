@@ -59,22 +59,45 @@ namespace kScripts
             }
         }
 
-        /*public static void SpawnNearbyZombie(EntityPlayer _entityPlayer, String _zombieType,
-            int _num = 1, int _dxz = 10)
+        public static List<KeyValuePair<String, object>> GetXmlPropertyClass(String _itemName, String _className)
         {
-            int classId = EntityClass.FromString(_zombieType);
-
-            for (int i = 0; i < _num; i++)
+            ItemClass itemClass = ItemClass.GetItemClass(_itemName, false);
+            if (itemClass.Properties.Classes.ContainsKey(_className))
             {
-                Vector3 spawnLocation =
-                    MakeFuzzy(_entityPlayer.GetBlockPosition(), _dxz).ToVector3();
-                Entity entity = EntityFactory.CreateEntity(classId, spawnLocation);
-                if (entity != null)
-                {
-                    GameManager.Instance.World.SpawnEntityInWorld(entity);
-                }
+                var dynamicProperties3 = itemClass.Properties.Classes[_className];
+                return ParseProperties(dynamicProperties3);
             }
-        }*/
+
+            return new List<KeyValuePair<string, object>>();
+
+        }
+
+        public static String GetXmlProperty(String _itemName, String _propertyName)
+        {
+            ItemClass itemClass = ItemClass.GetItemClass(_itemName, false);
+            Dictionary<string, object> dict = itemClass.Properties.Values.Dict.Dict;
+            String _result = (String) dict[_propertyName];
+
+
+            return  (string) _result;
+
+
+        }
+
+        private static List<KeyValuePair<String, object>> ParseProperties(DynamicProperties dynamicProperties3)
+        {
+            List<KeyValuePair<String, object>> keys = new List<KeyValuePair<String, object>>();
+
+            foreach (KeyValuePair<String, object> keyValuePair in dynamicProperties3.Values.Dict
+                .Dict)
+            {
+             
+                keys.Add(keyValuePair);
+            }
+                
+            return keys;
+        }
+
         
        
 

@@ -22,7 +22,7 @@ public class KRadial
                 ItemClass itemClass = ItemClass.GetItemClass(magazineItemNames[i], false);
                 if (itemClass != null)
                 {
-                    int itemCount = _xuiRadialWindow.xui.PlayerInventory.GetItemCount(itemClass.Id);
+                    // int itemCount = _xuiRadialWindow.xui.PlayerInventory.GetItemCount(itemClass.Id);
                     _xuiRadialWindow.CreateRadialEntry(i, itemClass.GetIconName(), "ItemIconAtlas",
                         String.Format(" "), itemClass.GetLocalizedItemName(), false);
                 }

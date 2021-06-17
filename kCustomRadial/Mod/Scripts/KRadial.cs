@@ -13,16 +13,14 @@ public class KRadial
         string[] radialItemNames = GetRadialItems();
         int preSelectedCommandIndex = -1;
         
-        KHelper.EasyLog($"Before for loop: magazineItemNames.length: {magazineItemNames.Length}", log);
-        KHelper.EasyLog(magazineItemNames, log);
-        
+        KHelper.EasyLog($"Before for loop: {radialItemNames.Length} radial items found", log);
+
         if (radialItemNames.Length > 0)
         {
-            KHelper.EasyLog("FOUND a CustomRadial", log);
 
-            for (int i = 0; i < magazineItemNames.Length; i++)
+            for (int i = 0; i < radialItemNames.Length; i++)
             {
-                ItemClass itemClass = ItemClass.GetItemClass(magazineItemNames[i], false);
+                ItemClass itemClass = ItemClass.GetItemClass(radialItemNames[i], false);
                 if (itemClass != null)
                 {
                     // int itemCount = _xuiRadialWindow.xui.PlayerInventory.GetItemCount(itemClass.Id);

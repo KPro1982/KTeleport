@@ -6,7 +6,7 @@ using DMT;
 
 
 [HarmonyPatch]
-public class KProCustomRadial
+public class KPatchCustomRadial
 {
 	
 	[HarmonyPatch(typeof(ItemActionAttack))]
@@ -15,6 +15,6 @@ public class KProCustomRadial
 		EntityPlayerLocal _epl)
 	{
 		KRadial.KSetupRadial(_xuiRadialWindow, _epl);
-		return true;
+		return false; // no need to return true because KSetupRadial performs all tasks
 	}
 }

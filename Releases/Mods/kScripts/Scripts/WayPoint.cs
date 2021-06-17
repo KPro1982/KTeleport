@@ -38,7 +38,7 @@ namespace kScripts
             {
                 var rand = new Random();
                 var roll = rand.Next(1, 3);
-                SpawnHere("zombieStripper", 3);
+                SpawnHere("zombieStripper", roll);
             }
     
         }

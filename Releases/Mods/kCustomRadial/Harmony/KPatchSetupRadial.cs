@@ -3,6 +3,7 @@ using GUI_2;
 using System;
 using UnityEngine;
 using DMT;
+using kScripts;
 
 
 [HarmonyPatch]
@@ -30,9 +31,29 @@ class Patch
 			// your stuff here
 			___playerUI.xui.RadialWindow.Open();
 			KRadial.KSetupRadial(___playerUI.xui.RadialWindow, ___entityPlayerLocal);
-			return true;
+			___playerUI.windowManager.Open("radial", true, true, true);
+			return false;
 		}
 		return true;
 
+	}
+}
+
+[HarmonyPatch(typeof(XUiC_Radial))]
+[HarmonyPatch("radialButtonPressed")]
+class KRadialButtonPressedPatch
+{
+
+	public static void  Postfix(PlayerActionsLocal _actionSet, ref bool __result)
+	{
+		
+		__result = _actionSet.Activate.IsPressed || _actionSet.PermanentActions.Activate.IsPressed ||
+		       _actionSet.Reload.IsPressed || _actionSet.PermanentActions.Reload.IsPressed ||
+		       _actionSet.ToggleFlashlight.IsPressed ||
+		       _actionSet.PermanentActions.ToggleFlashlight.IsPressed ||
+		       _actionSet.Inventory.IsPressed || _actionSet.VehicleActions.Inventory.IsPressed ||
+		       _actionSet.PermanentActions.Inventory.IsPressed || _actionSet.Prefab.IsPressed;
+		KHelper.EasyLog("RadialButtonPressed: {__result}", LogLevel.Chat);
+		
 	}
 }

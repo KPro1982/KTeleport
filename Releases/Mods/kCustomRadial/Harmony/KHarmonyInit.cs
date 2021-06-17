@@ -3,7 +3,7 @@ using HarmonyLib;
 
 
 
-public class KPro_CustomRadial_Init : IHarmony
+public class KHarmonyInit : IHarmony
 {
     public void Start()
     {

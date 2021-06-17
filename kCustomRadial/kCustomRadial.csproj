@@ -57,8 +57,9 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Mod\Harmony\Hello_Init.cs" />
-        <Compile Include="Mod\Harmony\KProCustomRadial.cs" />
+        <Compile Include="Mod\Harmony\KHarmonyInit.cs" />
+        <Compile Include="Mod\Harmony\KPatchSetupRadial.cs" />
+        <Compile Include="Mod\Scripts\KRadial.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>

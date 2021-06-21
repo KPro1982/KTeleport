@@ -7,16 +7,16 @@ using System.Collections.Generic;
 
 public class MinEventActionTest : MinEventActionBase
 {
-    string command;
-    private EntityPlayer entityPlayer;
+    private string _command;
+    private EntityPlayer _entityPlayer;
     
     public override void Execute(MinEventParams _params)
     {
-        entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+        _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
         List<Entity> nearbyEnemies;
         LogLevel log = LogLevel.Both;
 
-        if (command == null)
+        if (_command == null)
         {
             return;
         }
@@ -24,16 +24,16 @@ public class MinEventActionTest : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                nearbyEnemies = EnemyActivity.GetSurroundingEntities(entityPlayer, new Vector3(50f, 50f, 50f));
+                nearbyEnemies = EnemyActivity.GetSurroundingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
                 KHelper.EasyLog($"Number of Nearby Enemies: {nearbyEnemies.Count}", log);
-                nearbyEnemies = EnemyActivity.GetTargetingEntities(entityPlayer, new Vector3(50f, 50f, 50f));
+                nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
                 KHelper.EasyLog($"Number of Nearby Enemies targeting you: {nearbyEnemies.Count}", log);
-                KHelper.EasyLog($"You are Here: {entityPlayer.GetBlockPosition().x},{entityPlayer.GetBlockPosition().y},{entityPlayer.GetBlockPosition().z}.", log);
+                KHelper.EasyLog($"You are Here: {_entityPlayer.GetBlockPosition().x},{_entityPlayer.GetBlockPosition().y},{_entityPlayer.GetBlockPosition().z}.", log);
 
             }
             else
             {
-                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), command), false);
+                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), _command), false);
             }
         }
     }
@@ -46,7 +46,7 @@ public class MinEventActionTest : MinEventActionBase
             return xmlAttribute;
         }
 
-        this.command = _attribute.Value;
+        this._command = _attribute.Value;
         return true;
     }
 }

@@ -61,6 +61,7 @@
         <Compile Include="Mod\Scripts\KHelper.cs" />
         <Compile Include="Mod\Scripts\KPortalList.cs" />
         <Compile Include="Mod\Scripts\SimplePoint.cs" />
+        <Compile Include="Mod\Scripts\TeleportConfigData.cs" />
         <Compile Include="Mod\Scripts\Test.cs" />
         <Compile Include="Mod\Scripts\GoHome.cs" />
         <Compile Include="Mod\Scripts\GoWaypoint.cs" />

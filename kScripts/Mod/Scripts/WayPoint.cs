@@ -6,7 +6,7 @@ namespace kScripts
 {
     public class WayPoint : Portal
     {
-        public int BasePercentChanceOfConsequence = 5;
+        
         public WayPoint()
         {
         }
@@ -18,8 +18,9 @@ namespace kScripts
         {
             if (CanTeleport(_entityPlayer))
             {
-                
-                SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync(BuildConsoleCommand(MakeFuzzy(_coords, new Vector3i(10,0,10))), null);
+                Vector3i fuzzyCoords = MakeFuzzy(Coords, Config.AverageDisplacementDistance);
+                SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync(
+                        BuildConsoleCommand(fuzzyCoords, _yRestraint), null);
                 base.IncrementUsed();
                 base.StoreTimeStamp();
                 ImposeConsequences(GameManager.Instance.World.GetPrimaryPlayer());    
@@ -37,19 +38,19 @@ namespace kScripts
             if (DidConsequenceTrigger())
             {
                 var rand = new Random();
-                var roll = rand.Next(1, 3);
-                SpawnHere("zombieStripper", roll);
+                var roll = rand.Next(1, Config.MAXZeds);
+                SpawnHere(Config.ZombieTypeAtWaypoint,Config.AverageSpawnDistance, roll);
             }
     
         }
         public Vector3i MakeFuzzy(Vector3i _target, Vector3i _fuzzy)
         {
-            int _dx, _dz;
+            int dx, dz;
             var rand = new Random();
-            _dx = rand.Next(-_fuzzy.x, +_fuzzy.x);
-            _dz = rand.Next(-_fuzzy.z, +_fuzzy.z);
+            dx = rand.Next(-_fuzzy.x, +_fuzzy.x);
+            dz = rand.Next(-_fuzzy.z, +_fuzzy.z);
 
-            return _target + new Vector3i(_dx, 0, _dz);
+            return _target + new Vector3i(dx, 0, dz);
 
         }
 
@@ -58,16 +59,17 @@ namespace kScripts
             return MakeFuzzy(_target, new Vector3i(_dxz, 0, _dxz));
         }
 
-        public void SpawnHere(String _zombieType, int _num = 1, int _dxz = 10)
+        public void SpawnHere(String _zombieType, int _dxz, int _num = 1)
         {
             int classId = EntityClass.FromString(_zombieType);
 
             for (int i=0; i < _num; i++)
             {
-                KHelper.EasyLog(_coords, LogLevel.Both);
-                Entity entity = EntityFactory.CreateEntity(classId, MakeFuzzy(_coords, _dxz).ToVector3());
+                Vector3 fuzzyCoords = MakeFuzzy(Coords, _dxz).ToVector3();
+                Entity entity = EntityFactory.CreateEntity(classId, fuzzyCoords);
                 if (entity != null)
                 {
+                    KHelper.EasyLog($"Spawning {_zombieType} at {fuzzyCoords.ToString()}. You are at location {Coords.ToStringNoBlanks()}...WATCHOUT!", LogLevel.Both);
                     GameManager.Instance.World.SpawnEntityInWorld(entity);
                 }
             }
@@ -77,10 +79,10 @@ namespace kScripts
 
         protected bool DidConsequenceTrigger()
         {
-            int chance = BasePercentChanceOfConsequence * _used;
+            int chance = (int) (Config.BasePercentChanceOfConsequence * Used);
             var rand = new Random();
             var roll = rand.Next(0, 100);
-            KHelper.EasyLog($"You have a {chance}% of a negative consequence. You rolled a {roll}.", LogLevel.Both );
+            KHelper.EasyLog($"You have a {chance}% chance of a negative consequence each time you use a waypont. You rolled a {roll}.", LogLevel.Both );
             return ( roll <= chance);
         }
     }

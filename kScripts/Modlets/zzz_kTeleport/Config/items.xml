@@ -69,6 +69,11 @@ The second component is the teleport object, which informs kCustomRadial which a
 		<item name="KTeleport">
 			<property name="Extends" value="gunBowT0PrimitiveBow"/>
 			<property name="RadialItems" value="KProGoHome,KProReturn,KProSetHome,KProSetWaypoint1,KProGoWaypoint1,KProSetWaypoint2,KProGoWaypoint2, KProTest"/>
+			<property name="MaxZedsAtWaypoint" value="3"/>
+			<property name="ZombieTypeAtWaypoint" value="animalZombieDog"/>
+			<property name="BasePercentChanceOfConsequence" value="5"/>
+			<property name="AverageSpawnDistance" value="3"/>
+			<property name="AverageDisplacementDistance" value="20"/>
 		</item>
 </append>
 

@@ -6,7 +6,7 @@ public class KRadial
 {
     public static void KSetupRadial(XUiC_Radial _xuiRadialWindow, EntityPlayerLocal _epl)
     {
-        LogLevel log = LogLevel.Both;
+        LogLevel log = LogLevel.None;
 
         _xuiRadialWindow.ResetRadialEntries();
         string[] magazineItemNames = _epl.inventory.GetHoldingGun().MagazineItemNames;
@@ -125,12 +125,12 @@ public class KRadial
     }
     public class KProRadialContextItem : XUiC_Radial.RadialContextAbs
     {
-        LogLevel log = LogLevel.None;
+        LogLevel _log = LogLevel.None;
         // Token: 0x060023E5 RID: 9189 RVA: 0x000E53BB File Offset: 0x000E35BB
         public KProRadialContextItem(ItemActionRanged _rangedItemAction)
         {
-            KHelper.EasyLog("KPro_RadicalContextItem Constructor: _rangedItemAction:", log);
-            KHelper.EasyLog(_rangedItemAction, log);
+            KHelper.EasyLog("KPro_RadicalContextItem Constructor: _rangedItemAction:", _log);
+            KHelper.EasyLog(_rangedItemAction, _log);
             this.RangedItemAction = _rangedItemAction;
         }
 

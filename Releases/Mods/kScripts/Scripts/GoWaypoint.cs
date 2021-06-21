@@ -10,14 +10,13 @@ using UnityEngine;
 
 public class MinEventActionGoWaypoint : MinEventActionBase
 {
-
-    string command;
-    private EntityPlayer entityPlayer;
+    private string _command;
+    private EntityPlayer _entityPlayer;
     public override void Execute(MinEventParams _params)
     {
-        entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+        _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
         
-        if (command == null)
+        if (_command == null)
         {
             return;
         }
@@ -26,21 +25,21 @@ public class MinEventActionGoWaypoint : MinEventActionBase
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
 
-                if (KPortalList.Teleport(entityPlayer, command))
+                if (KPortalList.Teleport(_entityPlayer, _command))
                 {
                     Debug.Log("This is print in the player.log file");
-                    KPortalList.Add(new SimplePoint("return", entityPlayer.GetBlockPosition()));
+                    KPortalList.Add(new SimplePoint("return", _entityPlayer.GetBlockPosition()));
                 }
                 else
                 {
-                    KHelper.ChatOutput(entityPlayer, "You cannot go home as there is no home location stored.");
+                    KHelper.ChatOutput(_entityPlayer, "You cannot go home as there is no waypoint location stored.");
                 }
 
 
             }
             else
             {
-                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), command), false);
+                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), _command), false);
             }
         }
     }
@@ -53,7 +52,7 @@ public class MinEventActionGoWaypoint : MinEventActionBase
             return xmlAttribute;
         }
 
-        this.command = _attribute.Value;
+        this._command = _attribute.Value;
         return true;
     }
 

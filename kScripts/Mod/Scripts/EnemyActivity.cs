@@ -5,10 +5,9 @@ using UnityEngine;
 
 namespace kScripts
 {
-  
-    static class EnemyActivity
+    internal static class EnemyActivity
     {
-        private static LogLevel log = LogLevel.Both;
+        private static LogLevel _log = LogLevel.Both;
         public static List<Entity> GetSurroundingEntities(Entity _theEntity, Vector3 _boundingBox)
         {
             LogLevel log = LogLevel.Both;
@@ -46,7 +45,7 @@ namespace kScripts
                 (targetingEntities.Count != originalCount)
                     ? $"{originalCount} entities are in the area. {targetingEntities.Count} targeting you...yet."
                     : (targetingEntities.Count > 0 ? $"Happy now? You pissed everyone off." : ""),
-                log);
+                _log);
             return targetingEntities;
         }
     }

@@ -6,16 +6,16 @@ using kScripts;
 
 public class MinEventActionSetHome : MinEventActionBase
 {
-    string command;
-    EntityPlayer entityPlayer;
+    private string _command;
+    private EntityPlayer _entityPlayer;
      
 
     public override void Execute(MinEventParams _params)
     {
 
-        entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+        _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
 
-        if (command == null)
+        if (_command == null)
         {
             return;
         }
@@ -23,13 +23,13 @@ public class MinEventActionSetHome : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                Vector3i targetVector = entityPlayer.GetBlockPosition();
+                Vector3i targetVector = _entityPlayer.GetBlockPosition();
                 KPortalList.Add(new SimplePoint("home", targetVector));
-                KHelper.ChatOutput(entityPlayer, "Home location stored.");
+                KHelper.ChatOutput(_entityPlayer, "Home location stored.");
             }
             else
             {
-                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), command), false);
+                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), _command), false);
             }
         }
     }
@@ -42,7 +42,7 @@ public class MinEventActionSetHome : MinEventActionBase
             return xmlAttribute;
         }
 
-        this.command = _attribute.Value;
+        this._command = _attribute.Value;
         return true;
     }
 }

@@ -9,18 +9,26 @@ namespace kScripts
 {
     public static class KPortalList
     {
-        private static String _savepath = BuildSavePath();
-        private static string _savedGameDirectory = "";
-        private static List<Portal> _locations = Load();
+        private static String _savepath;
+        public static TeleportConfigData teleportListConfig;
+        private static List<Portal> _locations;
 
+        static KPortalList()
+        {
+            teleportListConfig = new TeleportConfigData();
+            _savepath = BuildSavePath();
+            _locations = Load();
+        }
 
         public static void Add(Portal _portal)
         {
+            
             if (_locations.Exists(x => x.Name.Equals(_portal.Name)))
             {
                 int num = _locations.RemoveAll(x => x.Name.Equals(_portal.Name));
             }
 
+            _portal.Config = teleportListConfig;
             _locations.Add(_portal);
             Save();
         }

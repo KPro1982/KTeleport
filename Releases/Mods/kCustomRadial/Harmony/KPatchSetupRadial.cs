@@ -20,7 +20,7 @@ public class KPatchCustomRadial
 	}
 }
 
-[HarmonyPatch(typeof(PlayerMoveController))]
+/*[HarmonyPatch(typeof(PlayerMoveController))]
 [HarmonyPatch("Update")]
 class Patch
 {
@@ -56,4 +56,4 @@ class KRadialButtonPressedPatch
 		KHelper.EasyLog("RadialButtonPressed: {__result}", LogLevel.Chat);
 		
 	}
-}
+}*/

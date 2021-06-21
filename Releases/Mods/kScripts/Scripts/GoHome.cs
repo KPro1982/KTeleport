@@ -10,14 +10,14 @@ using UnityEngine;
 
 public class MinEventActionGoHome : MinEventActionBase
 {
-    EntityPlayer entityPlayer;
-    String command;
+    private EntityPlayer _entityPlayer;
+    private String _command;
 
     public override void Execute(MinEventParams _params)
     {
-         entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+         _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
         
-        if (command == null)
+        if (_command == null)
         {
             return;
         }
@@ -25,15 +25,15 @@ public class MinEventActionGoHome : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                if (KPortalList.Teleport(entityPlayer, "home"))
+                if (KPortalList.Teleport(_entityPlayer, "home"))
                 {
-                    KPortalList.Add(new SimplePoint("return", entityPlayer.GetBlockPosition()));
+                    KPortalList.Add(new WayPoint("return", _entityPlayer.GetBlockPosition()));
                 }
                
             }
             else
             {
-                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), command), false);
+                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), _command), false);
             }
         }
     }
@@ -46,7 +46,7 @@ public class MinEventActionGoHome : MinEventActionBase
             return xmlAttribute;
         }
 
-        this.command = _attribute.Value;
+        this._command = _attribute.Value;
         return true;
     }
 

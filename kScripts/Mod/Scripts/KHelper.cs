@@ -70,10 +70,13 @@ namespace kScripts
         {
             ItemClass itemClass = ItemClass.GetItemClass(_itemName, false);
             Dictionary<string, object> dict = itemClass.Properties.Values.Dict.Dict;
-            String _result = (String) dict[_propertyName];
+            String result = (String) dict[_propertyName];
 
-
-            return  (string) _result;
+            if (result == null)
+            {
+                result = "";
+            }
+            return  (string) result;
 
 
         }

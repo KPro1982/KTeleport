@@ -7,19 +7,18 @@ using System.Xml;
 using kScripts;
 
 
-
-class MinEventActionReturn : MinEventActionBase
+internal class MinEventActionReturn : MinEventActionBase
 {
-    string command;
+    private string _command;
     //ClientInfo _cInfo;
 
-    private EntityPlayer entityPlayer;
+    private EntityPlayer _entityPlayer;
 
     public override void Execute(MinEventParams _params)
     {
-       entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+       _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
 
-        if (command == null)
+        if (_command == null)
         {
             return;
         }
@@ -27,15 +26,15 @@ class MinEventActionReturn : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                Vector3i returnV3I = entityPlayer.GetBlockPosition();
+                Vector3i returnV3I = _entityPlayer.GetBlockPosition();
 
-                if (KPortalList.Teleport(entityPlayer, "return"))
+                if (KPortalList.Teleport(_entityPlayer, "return"))
                 {
                     KPortalList.Add(new SimplePoint("return", returnV3I));
                 }
                 else
                 {
-                    KHelper.ChatOutput(entityPlayer, "No return location was stored.");
+                    KHelper.ChatOutput(_entityPlayer, "No return location was stored.");
                 }
             }
             else
@@ -53,7 +52,7 @@ class MinEventActionReturn : MinEventActionBase
             return xmlAttribute;
         }
 
-        this.command = _attribute.Value;
+        this._command = _attribute.Value;
         return true;
     }
 }

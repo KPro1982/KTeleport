@@ -3,15 +3,15 @@ using kScripts;
 
 public class MinEventActionSetWaypoint : MinEventActionBase
 {
-    string command;
-    EntityPlayer entityPlayer;
+    private string _command;
+    private EntityPlayer _entityPlayer;
 
     public override void Execute(MinEventParams _params)
     {
 
-       entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+       _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
 
-        if (command == null)
+        if (_command == null)
         {
             return;
         }
@@ -20,12 +20,12 @@ public class MinEventActionSetWaypoint : MinEventActionBase
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
                
-                KPortalList.Add(new WayPoint(command, entityPlayer.GetBlockPosition()));
-                KHelper.ChatOutput(entityPlayer, $"{command} location stored.");
+                KPortalList.Add(new WayPoint(_command, _entityPlayer.GetBlockPosition()));
+                KHelper.ChatOutput(_entityPlayer, $"{_command} location stored.");
             }
             else
             {
-                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), command), false);
+                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), _command), false);
             }
         }
     }
@@ -41,7 +41,7 @@ public class MinEventActionSetWaypoint : MinEventActionBase
             return xmlAttribute;
         }
 
-        this.command = _attribute.Value;
+        this._command = _attribute.Value;
         return true;
     }
 }

@@ -12,12 +12,13 @@ namespace kScripts
     
     public abstract class Portal
     {
-        public string _name;
-        public Vector3i _coords;
+        protected object teleportObject;
+        protected string _name;
+        protected Vector3i _coords;
         public int _used;
         public DateTime _timeLastUsed;
         public DateTime _timeCreated;
-
+        public TeleportConfigData Config { get; set; }
 
 
         public String Name
@@ -26,19 +27,21 @@ namespace kScripts
             set => _name = value;
         }
 
-        // public Vector3i Coords
-        // {
-        //     get => _coords;
-        //     set => _coords = value;
-        // }
+        
+        public Vector3i Coords
+        {
+            get => _coords;
+            set => _coords = value;
+        }
+        
 
-        /*public int Used
+        public int Used
         {
             get => _used;
             set => _used = value;
         }
 
-        public DateTime? TimeLastUsed
+        public DateTime TimeLastUsed
         {
             get => _timeLastUsed;
             set => _timeLastUsed = (DateTime) value;
@@ -48,16 +51,17 @@ namespace kScripts
         {
             get => _timeCreated;
             set => _timeCreated = value;
-        }*/
+        }
 
 
         public Portal()
         {
             // Portal._coords = new Vector3i(0, 0, 0);
             this._name = "";
-            this._used = 0;
-            this._timeCreated = DateTime.Now;
-            this._timeLastUsed = DateTime.Now;
+            this.Used = 0;
+            this.TimeCreated = DateTime.Now;
+            this.TimeLastUsed = DateTime.Now;
+            this.teleportObject = null;
 
         }
 
@@ -65,28 +69,29 @@ namespace kScripts
         {
             // LogAnywhere.Log($"coords from v3i constructor: {_coords.x}, {_coords.y}, {_coords.z}");
             
-            this._coords = _coords;
+            this.Coords = _coords;
             this._name = _name;
-            this._used = 0;
-            this._timeCreated = DateTime.Now;
-            this._timeLastUsed = DateTime.Now;
+            this.Used = 0;
+            this.TimeCreated = DateTime.Now;
+            this.TimeLastUsed = DateTime.Now;
 
         }
 
         public TimeSpan GetAge()
         {
-            return (DateTime.Now - _timeCreated);
+            return (DateTime.Now - TimeCreated);
         }
 
         public TimeSpan GetTimeSinceLastUse()
         {
-            return (DateTime.Now - _timeLastUsed);
+            TimeSpan tSpan = DateTime.Now - TimeLastUsed;
+            return tSpan;
         }
 
 
         protected void IncrementUsed()
         {
-            _used++;
+            Used++;
         }
 
 
@@ -101,7 +106,7 @@ namespace kScripts
         {
             if (CanTeleport(_entityPlayer))
             {
-                SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync(BuildConsoleCommand(_coords, _yRestraint), null);
+                SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync(BuildConsoleCommand(Coords, _yRestraint), null);
                 IncrementUsed();
                 StoreTimeStamp();
                 ImposeConsequences(GameManager.Instance.World.GetPrimaryPlayer());
@@ -123,8 +128,10 @@ namespace kScripts
 
         protected void StoreTimeStamp()
         {
-            this._timeLastUsed = DateTime.Now;
+            this.TimeLastUsed = DateTime.Now;
         }
+
+        
     }
 
 

@@ -80,6 +80,15 @@
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <PropertyGroup>
         <PostBuildEvent>
+            echo Refreshing Game Folder $(ProjectName)
+            set folder="C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\Mods"
+            cd /d %folder%
+            for /F "delims=" %%i in ('dir /b') do (rmdir "%%i" /s/q || del "%%i" /s/q)
+            xcopy /S /I /E /Y "C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\7DaysToDie_Data\CleanAssembly\" "C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\7DaysToDie_Data\Managed"
+            del "C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\7DaysToDie_Data\Managed\0Harmony.dll"
+            del "C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\7DaysToDie_Data\Managed\Mods.dll"
+            del "C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\7DaysToDie_Data\Managed\DMT.dll"
+                        
             echo Generating Release Folder for $(ProjectName)
             :: If you want the target folder to be named differently than your project name, change it here.
             SET TARGET=$(ProjectName)

@@ -27,7 +27,12 @@ public class MinEventActionGoHome : MinEventActionBase
             {
                 if (KPortalList.Teleport(_entityPlayer, "home"))
                 {
-                    KPortalList.Add(new WayPoint("return", _entityPlayer.GetBlockPosition()));
+                    KPortalList.Add(new SimplePoint("return", _entityPlayer.GetBlockPosition()));
+                }
+                else
+                {
+                    KPortalList.Add(new SimplePoint("home", _entityPlayer.GetBlockPosition()));
+                    KHelper.EasyLog("Stored home.", LogLevel.Chat);
                 }
                
             }

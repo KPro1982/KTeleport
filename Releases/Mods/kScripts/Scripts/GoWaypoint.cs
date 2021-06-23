@@ -27,12 +27,12 @@ public class MinEventActionGoWaypoint : MinEventActionBase
 
                 if (KPortalList.Teleport(_entityPlayer, _command))
                 {
-                    Debug.Log("This is print in the player.log file");
                     KPortalList.Add(new SimplePoint("return", _entityPlayer.GetBlockPosition()));
                 }
                 else
                 {
-                    KHelper.ChatOutput(_entityPlayer, "You cannot go home as there is no waypoint location stored.");
+                    KPortalList.Add(new WayPoint(_command, _entityPlayer.GetBlockPosition()));
+                    KHelper.EasyLog("Stored waypoint.", LogLevel.Chat);
                 }
 
 

@@ -1,18 +1,21 @@
-﻿using System.Xml;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml;
 using kScripts;
 
 
-
-
-public class MinEventActionSetHome : MinEventActionBase
+internal class MinEventActionReset : MinEventActionBase
 {
     private string _command;
+
+
     private EntityPlayer _entityPlayer;
-     
 
     public override void Execute(MinEventParams _params)
     {
-
         _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
 
         if (_command == null)
@@ -23,13 +26,12 @@ public class MinEventActionSetHome : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                Vector3i targetVector = _entityPlayer.GetBlockPosition();
-                KPortalList.Add(new SimplePoint("home", targetVector));
-                KHelper.ChatOutput(_entityPlayer, "Home location stored.");
+                KPortalList.RequestReset();
+                KHelper.EasyLog("Reset Requested.", LogLevel.Chat);
             }
             else
             {
-                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), _command), false);
+                // SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), command), false);
             }
         }
     }
@@ -46,4 +48,3 @@ public class MinEventActionSetHome : MinEventActionBase
         return true;
     }
 }
-

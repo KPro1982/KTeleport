@@ -28,14 +28,9 @@ internal class MinEventActionReturn : MinEventActionBase
             {
                 Vector3i returnV3I = _entityPlayer.GetBlockPosition();
 
-                if (KPortalList.Teleport(_entityPlayer, "return"))
-                {
-                    KPortalList.Add(new SimplePoint("return", returnV3I));
-                }
-                else
-                {
-                    KHelper.ChatOutput(_entityPlayer, "No return location was stored.");
-                }
+                KPortalList.Teleport(_entityPlayer, "return");
+                KPortalList.Add(new SimplePoint("return", returnV3I));
+                
             }
             else
             {

@@ -28,22 +28,11 @@ public class KPatchCustomRadial
 	public static void Postfix(XUiC_Radial __instance, XUiController _sender, OnHoverEventArgs _e)
 	{
 		XUiC_RadialEntry xuiC_RadialEntry = (XUiC_RadialEntry)_sender;
-		KHelper.EasyLog($"Isover: {_e.IsOver}");
 		KEventHandler.KOnHover( __instance, _sender, _e);
 	}
+
 	
-	
-	/*
-	[HarmonyPatch(typeof(XUiController))]
-	[HarmonyPatch("OnDoubleClicked")]
-	public static void Postfix(XUiController __instance, OnPressEventArgs _e)
-	{
-		
-		
-			KHelper.EasyLog("Double Clicked!", LogLevel.Chat);
-	
-	}
-	*/
+
 	
 
 }

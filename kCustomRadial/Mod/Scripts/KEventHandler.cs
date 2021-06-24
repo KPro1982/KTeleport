@@ -37,8 +37,10 @@ public class KEventHandler
         {
             if (xuiC_RadialEntry.SelectionText == "yIvuv - Reset")
             {
+                __instance.xui.PlayMenuConfirmSound();
+                __instance.xui.PlayMenuSliderSound();
                 KPortalList.RequestReset();
-                KHelper.EasyLog("Reset Requested.", LogLevel.Chat);
+
             }
         }
     }

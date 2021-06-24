@@ -24,7 +24,7 @@ public class MinEventActionKTest : MinEventActionBase
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
                 SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync("killall", null);
-                SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync("killall", null);
+                SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync("settime day", null);
                 KHelper.EasyLog("All cleaned up!", LogLevel.Chat);
 
             }

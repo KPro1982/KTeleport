@@ -5,7 +5,7 @@ namespace kScripts
         public SimplePoint() : base()
         {
         }
-        public SimplePoint(string home, Vector3i getBlockPosition) : base(home, getBlockPosition)
+        public SimplePoint(string name, Vector3i getBlockPosition) : base(name, getBlockPosition)
         {
             
         }

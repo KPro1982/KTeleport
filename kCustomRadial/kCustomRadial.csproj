@@ -62,6 +62,7 @@
     <ItemGroup>
         <Compile Include="Mod\Harmony\KHarmonyInit.cs" />
         <Compile Include="Mod\Harmony\KPatchSetupRadial.cs" />
+        <Compile Include="Mod\Scripts\KEventHandler.cs" />
         <Compile Include="Mod\Scripts\KRadial.cs" />
         <Compile Include="Mod\Scripts\KUiCUpdate.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />

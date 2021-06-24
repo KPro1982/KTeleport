@@ -1,59 +1,45 @@
 ﻿using HarmonyLib;
 using GUI_2;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using DMT;
 using kScripts;
+using kCustomRadial.Mod.Scripts;
 
 
 [HarmonyPatch]
 public class KPatchCustomRadial
 {
-	
+
 	[HarmonyPatch(typeof(ItemActionAttack))]
 	[HarmonyPatch("SetupRadial")]
 	public static bool Prefix(ItemActionAttack __instance, XUiC_Radial _xuiRadialWindow,
 		EntityPlayerLocal _epl)
 	{
 		KRadial.KSetupRadial(_xuiRadialWindow, _epl);
-		return false; // no need to return true because KSetupRadial performs all tasks
+		// _xuiRadialWindow.OnDoubleClick += KOnDoubleClicked;
+		return false; // no need to return true because KRadial performs all tasks
 	}
-}
-
-/*[HarmonyPatch(typeof(PlayerMoveController))]
-[HarmonyPatch("Update")]
-class Patch
-{
-	public static bool Prefix(PlayerMoveController __instance, LocalPlayerUI ___playerUI, EntityPlayerLocal ___entityPlayerLocal)
+	
+	[HarmonyPatch(typeof(XUiC_Radial))]
+	[HarmonyPatch("Init")]
+	public static void Postfix(XUiC_Radial __instance, ref List<XUiC_RadialEntry> ___menuItem)
 	{
-		if (__instance.playerInput.Prefab.WasPressed)
-		{
-			// your stuff here
-			___playerUI.xui.RadialWindow.Open();
-			KRadial.KSetupRadial(___playerUI.xui.RadialWindow, ___entityPlayerLocal);
-			___playerUI.windowManager.Open("radial", true, true, true);
-			return false;
-		}
-		return true;
-
+		KEventHandler.AssignHandler(___menuItem);
 	}
-}
 
-[HarmonyPatch(typeof(XUiC_Radial))]
-[HarmonyPatch("radialButtonPressed")]
-class KRadialButtonPressedPatch
-{
 
-	public static void  Postfix(PlayerActionsLocal _actionSet, ref bool __result)
+	/*
+	[HarmonyPatch(typeof(XUiController))]
+	[HarmonyPatch("OnDoubleClicked")]
+	public static void Postfix(XUiController __instance, OnPressEventArgs _e)
 	{
 		
-		__result = _actionSet.Activate.IsPressed || _actionSet.PermanentActions.Activate.IsPressed ||
-		       _actionSet.Reload.IsPressed || _actionSet.PermanentActions.Reload.IsPressed ||
-		       _actionSet.ToggleFlashlight.IsPressed ||
-		       _actionSet.PermanentActions.ToggleFlashlight.IsPressed ||
-		       _actionSet.Inventory.IsPressed || _actionSet.VehicleActions.Inventory.IsPressed ||
-		       _actionSet.PermanentActions.Inventory.IsPressed || _actionSet.Prefab.IsPressed;
-		KHelper.EasyLog("RadialButtonPressed: {__result}", LogLevel.Chat);
-		
+			KHelper.EasyLog("Double Clicked!", LogLevel.Chat);
+	
 	}
-}*/
+	*/
+	
+
+}

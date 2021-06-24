@@ -4,7 +4,7 @@ using kScripts;
 
 public class KEventHandler
 {
-    public static void AssignHandler(List<XUiC_RadialEntry> ___menuItem)
+    public static void AssignHandler(ref List<XUiC_RadialEntry> ___menuItem)
     {
         for (int j = 0; j < ___menuItem.Count; j++)
         {

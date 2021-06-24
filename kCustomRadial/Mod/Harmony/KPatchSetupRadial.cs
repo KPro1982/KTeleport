@@ -26,7 +26,7 @@ public class KPatchCustomRadial
 	[HarmonyPatch("Init")]
 	public static void Postfix(XUiC_Radial __instance, ref List<XUiC_RadialEntry> ___menuItem)
 	{
-		KEventHandler.AssignHandler(___menuItem);
+		KEventHandler.AssignHandler(ref ___menuItem);
 	}
 
 

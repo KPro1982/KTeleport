@@ -23,13 +23,22 @@ public class KPatchCustomRadial
 	}
 	
 	[HarmonyPatch(typeof(XUiC_Radial))]
+	[HarmonyPatch("ResetRadialEntries")]
+	
+	
+	public static void Postfix(XUiC_Radial __instance)
+	{
+		__instance.Init();
+	}
+
+	[HarmonyPatch(typeof(XUiC_Radial))]
 	[HarmonyPatch("Init")]
+	
+	
 	public static void Postfix(XUiC_Radial __instance, ref List<XUiC_RadialEntry> ___menuItem)
 	{
 		KEventHandler.AssignHandler(ref ___menuItem);
-		KHelper.EasyLog("After AssignHanlder", LogLevel.Both);
 	}
-
 
 	/*
 	[HarmonyPatch(typeof(XUiController))]

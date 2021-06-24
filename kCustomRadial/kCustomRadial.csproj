@@ -102,6 +102,8 @@
             xcopy "$(ProjectDir)Root\*" "%25DEPLOY_PATH%25\..\..\" /e /y /i /r /q
             )
             echo Generated Build at %25DEPLOY_PATH%25
+
+            
         </PostBuildEvent>
     </PropertyGroup>
     

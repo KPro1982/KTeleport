@@ -20,4 +20,27 @@ public class KEventHandler
     {
         KHelper.EasyLog("Double Clicked", LogLevel.Both);
     }
+    public static void KDoubleClicked()
+    {
+        KHelper.EasyLog("Inside KDouble Clicked", LogLevel.Both);
+    }
+
+    public static void KOnPress(XUiC_Radial __instance, XUiC_RadialEntry _sender)
+    {
+        KHelper.EasyLog("Inside KOnPress");
+    }
+
+    public static void KOnHover(XUiC_Radial __instance, XUiController _sender, OnHoverEventArgs _e)
+    {
+        XUiC_RadialEntry xuiC_RadialEntry = (XUiC_RadialEntry)_sender;
+        if (_e.IsOver )
+        {
+            KHelper.EasyLog($"Selection Text: {xuiC_RadialEntry.SelectionText}.");
+            if (xuiC_RadialEntry.SelectionText == "yIvuv - Reset")
+            {
+                KPortalList.RequestReset();
+                KHelper.EasyLog("Reset Requested.", LogLevel.Chat);
+            }
+        }
+    }
 }

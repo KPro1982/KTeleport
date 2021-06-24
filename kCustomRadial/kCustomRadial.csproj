@@ -80,6 +80,12 @@
             :: If you want the target folder to be named differently than your project name, change it here.
             SET TARGET=$(ProjectName)
             SET DEPLOY_PATH=$(SolutionDir)Releases\Mods\%25TARGET%25
+            SET DMT_PATH=D:\7D2D Modding\DMT\DMTViewer.exe
+            SET MOD_PATH=$(SolutionDir)Releases\Mods\
+            SET GAME_PATH=C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\
+            SET DMT_COMMANDLINE= /Silent /GameFolder "%25GAME_PATH%25" /ModFolder "%25GAME_PATH%25Mods\" /EnableAllMods
+            
+            
             echo Deployment will be %25DEPLOY_PATH%25
 
             :: Clean up the target folder, if it exists, then remake it. This is to remove stale files.
@@ -103,6 +109,9 @@
             )
             echo Generated Build at %25DEPLOY_PATH%25
 
+            echo Launch "%25DMT_PATH%25" %25DMT_COMMANDLINE%25
+            "%25DMT_PATH%25" %25DMT_COMMANDLINE%25
+            
             
         </PostBuildEvent>
     </PropertyGroup>

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,16 +7,16 @@ using System.Xml;
 using kScripts;
 
 
-internal class MinEventActionReset : MinEventActionBase
+internal class MinEventActionKReturn : MinEventActionBase
 {
     private string _command;
-
+    //ClientInfo _cInfo;
 
     private EntityPlayer _entityPlayer;
 
     public override void Execute(MinEventParams _params)
     {
-        _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+       _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
 
         if (_command == null)
         {
@@ -26,8 +26,11 @@ internal class MinEventActionReset : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                KPortalList.RequestReset();
-                KHelper.EasyLog("Reset Requested.", LogLevel.Chat);
+                Vector3i returnV3I = _entityPlayer.GetBlockPosition();
+
+                KPortalList.Teleport(_entityPlayer, "return");
+                KPortalList.Add(new SimplePoint("return", returnV3I));
+                
             }
             else
             {

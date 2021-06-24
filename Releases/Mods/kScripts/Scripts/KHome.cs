@@ -8,7 +8,7 @@ using kScripts;
 using UnityEngine;
 
 
-public class MinEventActionGoHome : MinEventActionBase
+public class MinEventActionKHome : MinEventActionBase
 {
     private EntityPlayer _entityPlayer;
     private String _command;

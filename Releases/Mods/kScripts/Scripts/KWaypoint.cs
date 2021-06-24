@@ -1,21 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 using kScripts;
 using UnityEngine;
-using System.Collections.Generic;
 
 
-public class MinEventActionTest : MinEventActionBase
+public class MinEventActionKWaypoint : MinEventActionBase
 {
     private string _command;
     private EntityPlayer _entityPlayer;
-    
     public override void Execute(MinEventParams _params)
     {
         _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-        List<Entity> nearbyEnemies;
-        LogLevel log = LogLevel.Both;
-
+        
         if (_command == null)
         {
             return;
@@ -24,11 +24,17 @@ public class MinEventActionTest : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                nearbyEnemies = EnemyActivity.GetSurroundingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
-                KHelper.EasyLog($"Number of Nearby Enemies: {nearbyEnemies.Count}", log);
-                nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
-                KHelper.EasyLog($"Number of Nearby Enemies targeting you: {nearbyEnemies.Count}", log);
-                KHelper.EasyLog($"You are Here: {_entityPlayer.GetBlockPosition().x},{_entityPlayer.GetBlockPosition().y},{_entityPlayer.GetBlockPosition().z}.", log);
+
+                if (KPortalList.Teleport(_entityPlayer, _command))
+                {
+                    KPortalList.Add(new SimplePoint("return", _entityPlayer.GetBlockPosition()));
+                }
+                else
+                {
+                    KPortalList.Add(new WayPoint(_command, _entityPlayer.GetBlockPosition()));
+                    KHelper.EasyLog("Stored waypoint.", LogLevel.Chat);
+                }
+
 
             }
             else
@@ -41,7 +47,7 @@ public class MinEventActionTest : MinEventActionBase
     public override bool ParseXmlAttribute(XmlAttribute _attribute)
     {
         bool xmlAttribute = base.ParseXmlAttribute(_attribute);
-        if (xmlAttribute || !(_attribute.Name == "command"))
+        if (xmlAttribute || _attribute.Name != "command")
         {
             return xmlAttribute;
         }
@@ -49,5 +55,5 @@ public class MinEventActionTest : MinEventActionBase
         this._command = _attribute.Value;
         return true;
     }
-}
 
+}

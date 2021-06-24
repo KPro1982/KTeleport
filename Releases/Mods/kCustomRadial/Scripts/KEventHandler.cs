@@ -35,7 +35,6 @@ public class KEventHandler
         XUiC_RadialEntry xuiC_RadialEntry = (XUiC_RadialEntry)_sender;
         if (_e.IsOver )
         {
-            KHelper.EasyLog($"Selection Text: {xuiC_RadialEntry.SelectionText}.");
             if (xuiC_RadialEntry.SelectionText == "yIvuv - Reset")
             {
                 KPortalList.RequestReset();

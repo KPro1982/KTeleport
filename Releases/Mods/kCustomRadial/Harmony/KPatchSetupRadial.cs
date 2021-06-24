@@ -23,33 +23,6 @@ public class KPatchCustomRadial
 	}
 	
 	[HarmonyPatch(typeof(XUiC_Radial))]
-	[HarmonyPatch("ResetRadialEntries")]
-	
-	
-	public static void Postfix(XUiC_Radial __instance)
-	{
-		__instance.Init();
-	}
-
-	[HarmonyPatch(typeof(XUiC_Radial))]
-	[HarmonyPatch("Init")]
-	
-	
-	public static void Postfix(XUiC_Radial __instance, ref List<XUiC_RadialEntry> ___menuItem)
-	{
-		KEventHandler.AssignHandler(ref ___menuItem);
-	}
-
-	
-	[HarmonyPatch(typeof(XUiController))]
-	[HarmonyPatch("DoubleClicked")]
-
-	public static void Postfix(XUiController __instance, int mouseButton)
-	{
-		KEventHandler.KDoubleClicked();
-	}
-	
-	[HarmonyPatch(typeof(XUiC_Radial))]
 	[HarmonyPatch("XUiC_Radial_OnHover")]
 	
 	public static void Postfix(XUiC_Radial __instance, XUiController _sender, OnHoverEventArgs _e)
@@ -57,17 +30,8 @@ public class KPatchCustomRadial
 		XUiC_RadialEntry xuiC_RadialEntry = (XUiC_RadialEntry)_sender;
 		KHelper.EasyLog($"Isover: {_e.IsOver}");
 		KEventHandler.KOnHover( __instance, _sender, _e);
-
-
-
 	}
 	
-	[HarmonyPatch(typeof(XUiC_Radial))]
-	[HarmonyPatch("XUiC_Radial_OnPress")]
-	public static void Postfix(XUiC_Radial __instance, XUiC_RadialEntry _sender)
-	{
-		
-	}
 	
 	/*
 	[HarmonyPatch(typeof(XUiController))]

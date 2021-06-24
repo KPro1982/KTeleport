@@ -13,8 +13,7 @@ public class MinEventActionKTest : MinEventActionBase
     public override void Execute(MinEventParams _params)
     {
         _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-        List<Entity> nearbyEnemies;
-        LogLevel log = LogLevel.Both;
+
 
         if (_command == null)
         {
@@ -24,11 +23,9 @@ public class MinEventActionKTest : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                nearbyEnemies = EnemyActivity.GetSurroundingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
-                KHelper.EasyLog($"Number of Nearby Enemies: {nearbyEnemies.Count}", log);
-                nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
-                KHelper.EasyLog($"Number of Nearby Enemies targeting you: {nearbyEnemies.Count}", log);
-                KHelper.EasyLog($"You are Here: {_entityPlayer.GetBlockPosition().x},{_entityPlayer.GetBlockPosition().y},{_entityPlayer.GetBlockPosition().z}.", log);
+                SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync("killall", null);
+                SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync("killall", null);
+                KHelper.EasyLog("All cleaned up!", LogLevel.Chat);
 
             }
             else

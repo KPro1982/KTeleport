@@ -16,7 +16,8 @@ public class MinEventActionKHome : MinEventActionBase
     public override void Execute(MinEventParams _params)
     {
          _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-        
+         Vector3i returnV3I = _entityPlayer.GetBlockPosition();
+         
         if (_command == null)
         {
             return;
@@ -25,9 +26,11 @@ public class MinEventActionKHome : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
+
+
                 if (KPortalList.Teleport(_entityPlayer, "home"))
                 {
-                    KPortalList.Add(new SimplePoint("return", _entityPlayer.GetBlockPosition()));
+                    KPortalList.Add(new SimplePoint("return", returnV3I));
                 }
                 else
                 {

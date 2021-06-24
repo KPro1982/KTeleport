@@ -32,6 +32,9 @@ namespace kCustomRadial.Mod.Scripts
                     }
                 }
 
+                _xuiRadialWindow.OnDoubleClick += KEventHandler.KOnDoubleClicked;
+                _xuiRadialWindow.OnRightPress += KEventHandler.KOnDoubleClicked;
+
                 _xuiRadialWindow.SetCommonData(UIUtils.ButtonIcon.FaceButtonEast,
                     new Action<XUiC_Radial, int, XUiC_Radial.RadialContextAbs>(
                         KProHandleCustomRadialCommand),

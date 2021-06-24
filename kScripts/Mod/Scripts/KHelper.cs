@@ -98,15 +98,10 @@ namespace kScripts
             return keys;
         }
 
-        
-       
 
-        
-            
-         
-
-        
-            
-
+        public static void EasyLog(string msg)
+        {
+            EasyLog(msg, LogLevel.Both);
+        }
     }
 }

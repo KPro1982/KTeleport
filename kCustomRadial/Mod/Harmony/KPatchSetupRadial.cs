@@ -27,6 +27,7 @@ public class KPatchCustomRadial
 	public static void Postfix(XUiC_Radial __instance, ref List<XUiC_RadialEntry> ___menuItem)
 	{
 		KEventHandler.AssignHandler(ref ___menuItem);
+		KHelper.EasyLog("After AssignHanlder", LogLevel.Both);
 	}
 
 
@@ -35,6 +36,7 @@ public class KPatchCustomRadial
 	[HarmonyPatch("OnDoubleClicked")]
 	public static void Postfix(XUiController __instance, OnPressEventArgs _e)
 	{
+		
 		
 			KHelper.EasyLog("Double Clicked!", LogLevel.Chat);
 	

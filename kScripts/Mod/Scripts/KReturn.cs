@@ -1,16 +1,24 @@
-﻿using System.Xml;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml;
 using kScripts;
 
-public class MinEventActionSetWaypoint : MinEventActionBase
+
+internal class MinEventActionKReturn : MinEventActionBase
 {
     private string _command;
+    //ClientInfo _cInfo;
+
     private EntityPlayer _entityPlayer;
 
     public override void Execute(MinEventParams _params)
     {
-
        _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-
+       Vector3i returnV3I = _entityPlayer.GetBlockPosition();
+       
         if (_command == null)
         {
             return;
@@ -19,13 +27,14 @@ public class MinEventActionSetWaypoint : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-               
-                KPortalList.Add(new WayPoint(_command, _entityPlayer.GetBlockPosition()));
-                KHelper.ChatOutput(_entityPlayer, $"{_command} location stored.");
+                
+                KPortalList.Teleport(_entityPlayer, "return");
+                KPortalList.Add(new SimplePoint("return", returnV3I));
+                
             }
             else
             {
-                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), _command), false);
+                // SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), command), false);
             }
         }
     }
@@ -33,9 +42,6 @@ public class MinEventActionSetWaypoint : MinEventActionBase
     public override bool ParseXmlAttribute(XmlAttribute _attribute)
     {
         bool xmlAttribute = base.ParseXmlAttribute(_attribute);
-        LogLevel log = LogLevel.None;
-        KHelper.EasyLog($"xmlAttribute: {xmlAttribute}, name: {_attribute.Name}, value: {_attribute.Value}, _attribute:{_attribute}", log);
-        
         if (xmlAttribute || !(_attribute.Name == "command"))
         {
             return xmlAttribute;

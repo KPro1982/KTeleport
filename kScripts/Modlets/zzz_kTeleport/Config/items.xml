@@ -8,70 +8,76 @@ The second component is the teleport object, which informs kCustomRadial which a
 <!-- Teleport Actions -->
 	
 <append xpath="/items">
-	<item name="KProGoHome">
+	<item name="KHome">
 		<property name="Extends" value="ammoArrowStone"/>
 		<effect_group name="KProTeleportProtocol" tiered="false"> 
-			<triggered_effect trigger="onSelfPrimaryActionEnd" action="GoHome, Mods" command="KProGoHome"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="KHome, Mods" command="home"/>
 		</effect_group>
 	</item>
 	
-	<item name="KProSetHome">
+	<item name="KReturn">
 		<property name="Extends" value="ammoArrowStone"/>
 		<effect_group name="KProTeleportProtocol" tiered="false"> 
-			<triggered_effect trigger="onSelfPrimaryActionEnd" action="SetHome, Mods" command="KProSetHome"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="KReturn, Mods" command="return"/>
+		</effect_group>
+	</item>
+
+	<item name="KWaypoint1">
+		<property name="Extends" value="ammoArrowStone"/>
+		<effect_group name="KProTeleportProtocol" tiered="false">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="KWaypoint, Mods" command="waypoint1"/>
+		</effect_group>
+	</item>
+
+	<item name="KWaypoint2">
+		<property name="Extends" value="ammoArrowStone"/>
+		<effect_group name="KProTeleportProtocol" tiered="false">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="KWaypoint, Mods" command="waypoint2"/>
+		</effect_group>
+	</item>
+
+	<item name="KWaypoint3">
+		<property name="Extends" value="ammoArrowStone"/>
+		<effect_group name="KProTeleportProtocol" tiered="false">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="KWaypoint, Mods" command="waypoint3"/>
+		</effect_group>
+	</item>
+	<item name="KWaypoint4">
+		<property name="Extends" value="ammoArrowStone"/>
+		<effect_group name="KProTeleportProtocol" tiered="false">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="KWaypoint, Mods" command="waypoint4"/>
+		</effect_group>
+	</item>
+	<item name="KWaypoint5">
+		<property name="Extends" value="ammoArrowStone"/>
+		<effect_group name="KProTeleportProtocol" tiered="false">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="KWaypoint, Mods" command="waypoint5"/>
+		</effect_group>
+	</item>
+
+	<item name="KTest">
+		<property name="Extends" value="ammoArrowStone"/>
+		<effect_group name="KProTeleportProtocol" tiered="false">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="KTest, Mods" command="test"/>
+		</effect_group>
+	</item>
+	<item name="KReset">
+		<property name="Extends" value="ammoArrowStone"/>
+		<effect_group name="KProTeleportProtocol" tiered="false">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="KReset, Mods" command="reset"/>
 		</effect_group>
 	</item>
 	
-	<item name="KProReturn">
-		<property name="Extends" value="ammoArrowStone"/>
-		<effect_group name="KProTeleportProtocol" tiered="false"> 
-			<triggered_effect trigger="onSelfPrimaryActionEnd" action="Return, Mods" command="KProSetHome"/>
-		</effect_group>
-	</item>
-
-	<item name="KProSetWaypoint1">
-		<property name="Extends" value="ammoArrowStone"/>
-		<effect_group name="KProTeleportProtocol" tiered="false">
-			<triggered_effect trigger="onSelfPrimaryActionEnd" action="SetWaypoint, Mods" command="waypoint1"/>
-		</effect_group>
-	</item>
-
-	<item name="KProGoWaypoint1">
-		<property name="Extends" value="ammoArrowStone"/>
-		<effect_group name="KProTeleportProtocol" tiered="false">
-			<triggered_effect trigger="onSelfPrimaryActionEnd" action="GoWaypoint, Mods" command="waypoint1"/>
-		</effect_group>
-	</item>
-
-	<item name="KProSetWaypoint2">
-		<property name="Extends" value="ammoArrowStone"/>
-		<effect_group name="KProTeleportProtocol" tiered="false">
-			<triggered_effect trigger="onSelfPrimaryActionEnd" action="SetWaypoint, Mods" command="waypoint2"/>
-		</effect_group>
-	</item>
-
-	<item name="KProGoWaypoint2">
-		<property name="Extends" value="ammoArrowStone"/>
-		<effect_group name="KProTeleportProtocol" tiered="false">
-			<triggered_effect trigger="onSelfPrimaryActionEnd" action="GoWaypoint, Mods" command="waypoint2"/>
-		</effect_group>
-	</item>
-
-	<item name="KProTest">
-		<property name="Extends" value="ammoArrowStone"/>
-		<effect_group name="KProTeleportProtocol" tiered="false">
-			<triggered_effect trigger="onSelfPrimaryActionEnd" action="Test, Mods" command="waypoint2"/>
-		</effect_group>
-	</item>
+	
 <!--  Teleport Object>  -->
 	
 
 		<item name="KTeleport">
 			<property name="Extends" value="gunBowT0PrimitiveBow"/>
-			<property name="RadialItems" value="KProGoHome,KProReturn,KProSetHome,KProSetWaypoint1,KProGoWaypoint1,KProSetWaypoint2,KProGoWaypoint2, KProTest"/>
+			<property name="RadialItems" value="KHome,KReturn,KWaypoint1,KWaypoint2,KWaypoint3,KWaypoint4,KWaypoint5,KTest,KReset"/>
 			<property name="MaxZedsAtWaypoint" value="3"/>
 			<property name="ZombieTypeAtWaypoint" value="animalZombieDog"/>
-			<property name="BasePercentChanceOfConsequence" value="5"/>
+			<property name="BasePercentChanceOfConsequence" value="0"/>
 			<property name="AverageSpawnDistance" value="3"/>
 			<property name="AverageDisplacementDistance" value="20"/>
 		</item>

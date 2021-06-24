@@ -12,6 +12,7 @@ namespace kScripts
         private static String _savepath;
         public static TeleportConfigData teleportListConfig;
         private static List<Portal> _locations;
+        private static bool resetRequested = false;
 
         static KPortalList()
         {
@@ -32,18 +33,41 @@ namespace kScripts
             _locations.Add(_portal);
             Save();
         }
+        
+
+        public static void Remove(string _portalName)
+        {
+            if (_locations.Exists(x => x.Name.Equals(_portalName)))
+            {
+                int num = _locations.RemoveAll(x => x.Name.Equals(_portalName));
+            }
+            Save();
+        }
 
         public static bool Teleport(EntityPlayer _entityPlayer, String _name)
         {
             Portal portal;
-            if (TryGetLocation(_name, out portal))
+
+            if (resetRequested)
             {
-                portal.Teleport(_entityPlayer);
-                return true;
+                Remove(_name);
+                resetRequested = false;
+                return false;
             }
+            else {
+                if (TryGetLocation(_name, out portal))
+                {
+                    portal.Teleport(_entityPlayer);
+                    return true;
+                }
+                
+            }
+            
 
             return false;
         }
+
+       
         private static bool TryGetLocation(string _name, out Portal _portal)
         {
             _portal = _locations.Find(x => x.Name.Equals(_name));
@@ -104,6 +128,11 @@ namespace kScripts
         {
             string saveDirectoryStr = GameUtils.GetSaveGameDir(null, null);
             return saveDirectoryStr;
+        }
+
+        public static void RequestReset()
+        {
+            resetRequested = true;
         }
     }
 }

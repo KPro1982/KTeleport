@@ -1,13 +1,25 @@
-Key,File,Type,UsedInMainMenu,NoTranslate,english,french
-KProGoHome,Items,Melee,,,"Go Home","TP Home"
-KProGoHomeDesc,Items,Melee,,,"Use this to teleport home.","Utilisez ceci pour vous téléporter à votre home."
-KProSetHome,Items,Melee,,,"Set Home.","Définir Home"
-KProSetHomeDesc,Items,Melee,,,"Use this to set your home location.","Utilisez ceci pour définir votre home."
-KProReturn,Items,Melee,,,"Return.","Retour à la position précédente."
-KProReturnDesc,Items,Melee,,,"Use this to return to your prior location.","Utilisez ceci pour vous téléporter à votre position précédente."
-KProSetWaypoint,Items,Melee,,,"Set Waypoint.","Définir un point de repère."
-KProSetWaypointDesc,Items,Melee,,,"Use this to save your current location.","Utilisez ceci pour enregistrer votre position actuelle."
-KProGoWaypoint,Items,Melee,,,"Go to Waypoint.","Se téléporter au point de repère."
-KProGoWaypointDesc,Items,Melee,,,"Use this to return to your prior location.","Utilisez ceci pour vous téléporter à votre position précédente."
-gunTeleport,Items,Melee,,,"A strange looking object.","Un objet à l'apparence étrange."
-gunTeleportDesc,Items,Melee,,,"It looks like it could take you places.","Il semblerait que cet objet puisse vous emmener partout."
+Key,File,Type,UsedInMainMenu,NoTranslate,english
+KHome,Items,Melee,,,"juH - Home"
+KHomeDesc,Items,Melee,,,"juH qaSmeH qoH yIlo'"
+KReturn,Items,Melee,,,"nobHa' - Return"
+KReturnDesc,Items,Melee,,,"juH qaSmeH qoH yIlo'"
+KReset,Items,Melee,,,"yIvuv - Reset"
+KResetDesc,Items,Melee,,,"jQapla' yIHa'choH"
+
+KWaypoint1,Items,Melee,,,"yIVuvchoH - 1"
+KWaypoint1Desc,Items,Melee,,,"vIjatlhtaHvIS, QIchvam jatlhruppa' bIH. 'ach bIHeghnIS.."
+
+KWaypoint2,Items,Melee,,,"yIVuvchoH - 2"
+KWaypoint2Desc,Items,Melee,,,"vIjatlhtaHvIS, QIchvam jatlhruppa' bIH. 'ach bIHeghnIS.."
+
+KWaypoint3,Items,Melee,,,"yIVuvchoH - 3"
+KWaypoint3Desc,Items,Melee,,,"vIjatlhtaHvIS, QIchvam jatlhruppa' bIH. 'ach bIHeghnIS.."
+
+KWaypoint4,Items,Melee,,,"yIVuvchoH - 4"
+KWaypoint4Desc,Items,Melee,,,"vIjatlhtaHvIS, QIchvam jatlhruppa' bIH. 'ach bIHeghnIS.."
+
+KWaypoint5,Items,Melee,,,"yIVuvchoH - 5"
+KWaypoint5Desc,Items,Melee,,,"vIjatlhtaHvIS, QIchvam jatlhruppa' bIH. 'ach bIHeghnIS.."
+
+KTeleport,Items,Melee,,,"A strange object covered in glyphs."
+KTeleportDesc,Items,Melee,,,"It looks like its seen better days."

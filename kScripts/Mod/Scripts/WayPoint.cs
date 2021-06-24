@@ -69,7 +69,7 @@ namespace kScripts
                 Entity entity = EntityFactory.CreateEntity(classId, fuzzyCoords);
                 if (entity != null)
                 {
-                    KHelper.EasyLog($"Spawning {_zombieType} at {fuzzyCoords.ToString()}. You are at location {Coords.ToStringNoBlanks()}...WATCHOUT!", LogLevel.Both);
+                    KHelper.EasyLog($"Spawning {_zombieType} at {fuzzyCoords.ToString()}. You are at location {Coords.ToStringNoBlanks()}...WATCHOUT!", LogLevel.Chat);
                     GameManager.Instance.World.SpawnEntityInWorld(entity);
                 }
             }
@@ -82,7 +82,7 @@ namespace kScripts
             int chance = (int) (Config.BasePercentChanceOfConsequence * Used);
             var rand = new Random();
             var roll = rand.Next(0, 100);
-            KHelper.EasyLog($"You have a {chance}% chance of a negative consequence each time you use a waypont. You rolled a {roll}.", LogLevel.Both );
+            KHelper.EasyLog($"You have a {chance}% chance of a negative consequence each time you use a waypont. You rolled a {roll}.", LogLevel.None );
             return ( roll <= chance);
         }
     }

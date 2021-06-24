@@ -5,19 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using kScripts;
+using UnityEngine;
 
 
-internal class MinEventActionReturn : MinEventActionBase
+public class MinEventActionKWaypoint : MinEventActionBase
 {
     private string _command;
-    //ClientInfo _cInfo;
-
     private EntityPlayer _entityPlayer;
-
     public override void Execute(MinEventParams _params)
     {
-       _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-
+        _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+        Vector3i returnV3I = _entityPlayer.GetBlockPosition();
+        
         if (_command == null)
         {
             return;
@@ -26,20 +25,22 @@ internal class MinEventActionReturn : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                Vector3i returnV3I = _entityPlayer.GetBlockPosition();
 
-                if (KPortalList.Teleport(_entityPlayer, "return"))
+                if (KPortalList.Teleport(_entityPlayer, _command))
                 {
                     KPortalList.Add(new SimplePoint("return", returnV3I));
                 }
                 else
                 {
-                    KHelper.ChatOutput(_entityPlayer, "No return location was stored.");
+                    KPortalList.Add(new WayPoint(_command, _entityPlayer.GetBlockPosition()));
+                    KHelper.EasyLog("Stored waypoint.", LogLevel.Chat);
                 }
+
+
             }
             else
             {
-                // SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), command), false);
+                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), _command), false);
             }
         }
     }
@@ -47,7 +48,7 @@ internal class MinEventActionReturn : MinEventActionBase
     public override bool ParseXmlAttribute(XmlAttribute _attribute)
     {
         bool xmlAttribute = base.ParseXmlAttribute(_attribute);
-        if (xmlAttribute || !(_attribute.Name == "command"))
+        if (xmlAttribute || _attribute.Name != "command")
         {
             return xmlAttribute;
         }
@@ -55,4 +56,5 @@ internal class MinEventActionReturn : MinEventActionBase
         this._command = _attribute.Value;
         return true;
     }
+
 }

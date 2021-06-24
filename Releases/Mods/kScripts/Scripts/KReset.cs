@@ -1,21 +1,23 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using kScripts;
-using UnityEngine;
 
 
-public class MinEventActionGoWaypoint : MinEventActionBase
+internal class MinEventActionKReset : MinEventActionBase
 {
     private string _command;
+
+
     private EntityPlayer _entityPlayer;
+
     public override void Execute(MinEventParams _params)
     {
         _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-        
+
         if (_command == null)
         {
             return;
@@ -24,22 +26,12 @@ public class MinEventActionGoWaypoint : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-
-                if (KPortalList.Teleport(_entityPlayer, _command))
-                {
-                    Debug.Log("This is print in the player.log file");
-                    KPortalList.Add(new SimplePoint("return", _entityPlayer.GetBlockPosition()));
-                }
-                else
-                {
-                    KHelper.ChatOutput(_entityPlayer, "You cannot go home as there is no waypoint location stored.");
-                }
-
-
+                KPortalList.RequestReset();
+                KHelper.EasyLog("Reset Requested.", LogLevel.Chat);
             }
             else
             {
-                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), _command), false);
+                // SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageConsoleCmdServer>().Setup(GameManager.Instance.World.GetPrimaryPlayerId(), command), false);
             }
         }
     }
@@ -47,7 +39,7 @@ public class MinEventActionGoWaypoint : MinEventActionBase
     public override bool ParseXmlAttribute(XmlAttribute _attribute)
     {
         bool xmlAttribute = base.ParseXmlAttribute(_attribute);
-        if (xmlAttribute || _attribute.Name != "command")
+        if (xmlAttribute || !(_attribute.Name == "command"))
         {
             return xmlAttribute;
         }
@@ -55,5 +47,4 @@ public class MinEventActionGoWaypoint : MinEventActionBase
         this._command = _attribute.Value;
         return true;
     }
-
 }

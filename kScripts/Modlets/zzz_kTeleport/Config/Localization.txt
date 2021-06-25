@@ -1,25 +1,25 @@
 Key,File,Type,UsedInMainMenu,NoTranslate,english
-KHome,Items,Melee,,,"juH - Home"
+KHome,Items,Melee,,,"juH"
 KHomeDesc,Items,Melee,,,"juH qaSmeH qoH yIlo'"
-KReturn,Items,Melee,,,"nobHa' - Return"
+KReturn,Items,Melee,,,"nobHa'"
 KReturnDesc,Items,Melee,,,"juH qaSmeH qoH yIlo'"
-KReset,Items,Melee,,,"yIvuv - Reset"
+KReset,Items,Melee,,,"yIvuv"
 KResetDesc,Items,Melee,,,"jQapla' yIHa'choH"
 
-KWaypoint1,Items,Melee,,,"yIVuvchoH - 1"
+KWaypoint1,Items,Melee,,,"yIVuvchoH"
 KWaypoint1Desc,Items,Melee,,,"vIjatlhtaHvIS, QIchvam jatlhruppa' bIH. 'ach bIHeghnIS.."
 
-KWaypoint2,Items,Melee,,,"yIVuvchoH - 2"
+KWaypoint2,Items,Melee,,,"yIVuvchoH"
 KWaypoint2Desc,Items,Melee,,,"vIjatlhtaHvIS, QIchvam jatlhruppa' bIH. 'ach bIHeghnIS.."
 
-KWaypoint3,Items,Melee,,,"yIVuvchoH - 3"
+KWaypoint3,Items,Melee,,,"yIVuvchoH"
 KWaypoint3Desc,Items,Melee,,,"vIjatlhtaHvIS, QIchvam jatlhruppa' bIH. 'ach bIHeghnIS.."
 
-KWaypoint4,Items,Melee,,,"yIVuvchoH - 4"
+KWaypoint4,Items,Melee,,,"yIVuvchoH"
 KWaypoint4Desc,Items,Melee,,,"vIjatlhtaHvIS, QIchvam jatlhruppa' bIH. 'ach bIHeghnIS.."
 
-KWaypoint5,Items,Melee,,,"yIVuvchoH - 5"
+KWaypoint5,Items,Melee,,,"yIVuvchoH"
 KWaypoint5Desc,Items,Melee,,,"vIjatlhtaHvIS, QIchvam jatlhruppa' bIH. 'ach bIHeghnIS.."
 
 KTeleport,Items,Melee,,,"A strange object covered in glyphs."
-KTeleportDesc,Items,Melee,,,"It looks like its seen better days."
+KTeleportDesc,Items,Melee,,,"It could be some kind of weapon...could be a bomb.  It looks like its seen better days."

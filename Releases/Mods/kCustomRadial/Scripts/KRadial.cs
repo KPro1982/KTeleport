@@ -6,6 +6,8 @@ namespace kCustomRadial.Mod.Scripts
 {
     public class KRadial
     {
+        public static string ResetItemName { get; private set; }
+
         public static void KSetupRadial(XUiC_Radial _xuiRadialWindow, EntityPlayerLocal _epl)
         {
             LogLevel log = LogLevel.None;
@@ -32,8 +34,6 @@ namespace kCustomRadial.Mod.Scripts
                     }
                 }
 
-                _xuiRadialWindow.OnDoubleClick += KEventHandler.KOnDoubleClicked;
-                _xuiRadialWindow.OnRightPress += KEventHandler.KOnDoubleClicked;
 
                 _xuiRadialWindow.SetCommonData(UIUtils.ButtonIcon.FaceButtonEast,
                     new Action<XUiC_Radial, int, XUiC_Radial.RadialContextAbs>(
@@ -76,10 +76,19 @@ namespace kCustomRadial.Mod.Scripts
         private static string[] GetRadialItems()
         {
             string strRadialItems = KHelper.GetXmlProperty("KTeleport", "RadialItems");
+            
+            if (KHelper.GetXmlProperty("KTeleport", "ResetItem") != "")
+            {
+                string _name = KHelper.GetXmlProperty("KTeleport", "ResetItem");
+                ItemClass itemClass = ItemClass.GetItemClass(_name, false);
+                ResetItemName = itemClass.GetLocalizedItemName();
+            }
+            
             if (strRadialItems.Length > 0)
             {
                 return strRadialItems.Split(',');
             }
+
 
             return new[] {""};
         }

@@ -13,7 +13,6 @@ namespace kScripts
         public static TeleportConfigData teleportListConfig;
         private static List<Portal> _locations;
         private static bool resetRequested = false;
-
         static KPortalList()
         {
             teleportListConfig = new TeleportConfigData();
@@ -24,7 +23,7 @@ namespace kScripts
         public static void Add(Portal _portal)
         {
             
-            if (_locations.Exists(x => x.Name.Equals(_portal.Name)))
+            if (_portal.IsValid && _locations.Exists(x => x.Name.Equals(_portal.Name)))
             {
                 int num = _locations.RemoveAll(x => x.Name.Equals(_portal.Name));
             }
@@ -58,6 +57,7 @@ namespace kScripts
                 if (TryGetLocation(_name, out portal))
                 {
                     portal.Teleport(_entityPlayer);
+                    Save();
                     return true;
                 }
                 
@@ -133,6 +133,17 @@ namespace kScripts
         public static void RequestReset()
         {
             resetRequested = true;
+        }
+
+        public static void AcceptCrystal()
+        {
+            int i = 0;
+            foreach (Portal p in _locations)  // does this iterate over all derived portal classes? Maybe I need to use an interface here??
+            {
+                Portal.ChargesUsed = 0;
+                KHelper.EasyLog($"i: {i++} name: {p.Name}");
+            }
+            Save();
         }
     }
 }

@@ -63,7 +63,7 @@ The second component is the teleport object, which informs kCustomRadial which a
 	</item>
 	<item name="KReset">
 		<property name="Extends" value="ammoArrowStone"/>
-		<effect_group name="KProTeleportProtocol" tiered="false">
+		<effect_group name="KTeleportProtocol" tiered="false">
 			<triggered_effect trigger="onSelfPrimaryActionEnd" action="KReset, Mods" command="reset"/>
 		</effect_group>
 	</item>
@@ -78,10 +78,21 @@ The second component is the teleport object, which informs kCustomRadial which a
 			<property name="ResetItem" value="KReset"/>
 			<property name="MaxZedsAtWaypoint" value="3"/>
 			<property name="ZombieTypeAtWaypoint" value="animalZombieDog"/>
-			<property name="BasePercentChanceOfConsequence" value="0"/>
+			<property name="BasePercentChanceOfConsequence" value="10"/>
 			<property name="AverageSpawnDistance" value="3"/>
 			<property name="AverageDisplacementDistance" value="20"/>
+			<property name="SaveHomeDelaySeconds" value="300"/>	
+			<property name="CanTeleportNearEnemies" value="false"/>
+			<property name="EnemyScanningRange" value="50"/>
 		</item>
+
+	<item name="KCrystal">
+		<property name="Extends" value="drugAtomJunkies"/>
+		<effect_group name="KTeleportProtocol" tiered="false">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="KActivateCrystal, Mods" command="activate"/>
+		</effect_group>
+	</item>
+	
 </append>
 
 </kpro>

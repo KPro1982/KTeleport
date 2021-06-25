@@ -1,8 +1,14 @@
 <configs>
 	
 <append xpath="/recipes">
-		<recipe name="KTeleport" count="1" craft_time = "1">
+	<recipe name="KTeleport" count="1" craft_time = "1">
 		<ingredient name="resourceRockSmall" count="1"/>		
+	</recipe>
+	<recipe name="KCrystal" count="1" craft_time = "1">
+		<ingredient name="resourceRockSmall" count="1"/>
+	</recipe>
+	<recipe name="resourceRockSmall" count="500" craft_time = "1">
+		<ingredient name="resourceRockSmall" count="1"/>
 	</recipe>
 </append>
 </configs>

@@ -23,3 +23,6 @@ KWaypoint5Desc,Items,Melee,,,"vIjatlhtaHvIS, QIchvam jatlhruppa' bIH. 'ach bIHeg
 
 KTeleport,Items,Melee,,,"A strange object covered in glyphs."
 KTeleportDesc,Items,Melee,,,"It could be some kind of weapon...could be a bomb.  It looks like its seen better days."
+
+KCrystal,Items,Melee,,,"A crystal shard."
+KCrystalDesc,Items,Melee,,,"An iridescent crystal. It is icy cold to the touch."

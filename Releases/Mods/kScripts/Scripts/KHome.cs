@@ -34,7 +34,7 @@ public class MinEventActionKHome : MinEventActionBase
                 }
                 else
                 {
-                    KPortalList.Add(new SimplePoint("home", _entityPlayer.GetBlockPosition()));
+                    KPortalList.Add(new HomePoint("home", _entityPlayer.GetBlockPosition()));
                     KHelper.EasyLog("Stored home.", LogLevel.Chat);
                 }
                

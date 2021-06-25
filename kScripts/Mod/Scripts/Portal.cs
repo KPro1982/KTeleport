@@ -9,13 +9,15 @@ namespace kScripts
 {
     [XmlInclude(typeof(SimplePoint))]
     [XmlInclude(typeof(WayPoint))]
-    
+    [XmlInclude(typeof(HomePoint))]
     public abstract class Portal
     {
         protected object teleportObject;
         protected string _name;
         protected Vector3i _coords;
-        public int _used;
+        public bool IsValid { get; set; } = true;
+        public static int ChargesUsed { get; set; }
+        protected int Used { get; }
         public DateTime _timeLastUsed;
         public DateTime _timeCreated;
         public TeleportConfigData Config { get; set; }
@@ -35,12 +37,6 @@ namespace kScripts
         }
         
 
-        public int Used
-        {
-            get => _used;
-            set => _used = value;
-        }
-
         public DateTime TimeLastUsed
         {
             get => _timeLastUsed;
@@ -58,7 +54,6 @@ namespace kScripts
         {
             // Portal._coords = new Vector3i(0, 0, 0);
             this._name = "";
-            this.Used = 0;
             this.TimeCreated = DateTime.Now;
             this.TimeLastUsed = DateTime.Now;
             this.teleportObject = null;
@@ -71,12 +66,12 @@ namespace kScripts
             
             this.Coords = _coords;
             this._name = _name;
-            this.Used = 0;
             this.TimeCreated = DateTime.Now;
             this.TimeLastUsed = DateTime.Now;
 
         }
-
+        
+        
         public TimeSpan GetAge()
         {
             return (DateTime.Now - TimeCreated);
@@ -87,13 +82,7 @@ namespace kScripts
             TimeSpan tSpan = DateTime.Now - TimeLastUsed;
             return tSpan;
         }
-
-
-        protected void IncrementUsed()
-        {
-            Used++;
-        }
-
+        
 
         protected String BuildConsoleCommand(Vector3i _target, YRestraint _yRestraint = YRestraint.OnGround)
         {
@@ -107,7 +96,6 @@ namespace kScripts
             if (CanTeleport(_entityPlayer))
             {
                 SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync(BuildConsoleCommand(Coords, _yRestraint), null);
-                IncrementUsed();
                 StoreTimeStamp();
                 ImposeConsequences(GameManager.Instance.World.GetPrimaryPlayer());
             }
@@ -117,8 +105,26 @@ namespace kScripts
 
         protected virtual bool CanTeleport(EntityPlayer _entityPlayer)
         {
-            var nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, new Vector3(50f, 50f, 50f));
-            return (nearbyEnemies.Count == 0);
+
+            if (!Config.CanTeleportNearEnemies)
+            {
+                Vector3 scanRange = new Vector3( Config.EnemyScanningRange,
+                    Config.EnemyScanningRange,  Config.EnemyScanningRange);
+                var nearbyEnemies = EnemyActivity.GetTargetingEntities(_entityPlayer, scanRange);
+
+                if (nearbyEnemies.Count == 0)
+                {
+                    return true;
+                } else
+                {
+                    KHelper.EasyLog($"Cannot teleport just now. There are {nearbyEnemies.Count} within {Config.EnemyScanningRange}!");
+                    return false;
+                }
+
+
+            }
+
+            return true;
 
         }
 

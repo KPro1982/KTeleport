@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,15 +8,15 @@ using kScripts;
 using UnityEngine;
 
 
-public class MinEventActionKHome : MinEventActionBase
+public class MinEventActionKActivateCrystal : MinEventActionBase
 {
     private EntityPlayer _entityPlayer;
     private String _command;
 
     public override void Execute(MinEventParams _params)
     {
-         _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-         Vector3i returnV3I = _entityPlayer.GetBlockPosition();
+        _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
+        Vector3i returnV3I = _entityPlayer.GetBlockPosition();
          
         if (_command == null)
         {
@@ -27,16 +27,9 @@ public class MinEventActionKHome : MinEventActionBase
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
 
+            KPortalList.AcceptCrystal();
+            KHelper.EasyLog("Crystal accepted.");
 
-                if (KPortalList.Teleport(_entityPlayer, "home"))
-                {
-                    KPortalList.Add(new SimplePoint("return", returnV3I));
-                }
-                else
-                {
-                    KPortalList.Add(new HomePoint("home", _entityPlayer.GetBlockPosition()));
-                    KHelper.EasyLog("Stored home.", LogLevel.Chat);
-                }
                
             }
             else

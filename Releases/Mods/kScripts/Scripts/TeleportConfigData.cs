@@ -9,6 +9,8 @@ namespace kScripts
         public int BasePercentChanceOfConsequence = 1;
         public int AverageSpawnDistance = 15;
         public int AverageDisplacementDistance = 100;
+        public bool CanTeleportNearEnemies = false;
+        public float EnemyScanningRange = 50f;
 
         public TeleportConfigData()
         {
@@ -47,7 +49,16 @@ namespace kScripts
                     int.Parse(KHelper.GetXmlProperty("KTeleport", "AverageDisplacementDistance"));
                 KHelper.EasyLog($"AverageDisplacementDistance: {AverageDisplacementDistance}", log);
             }
-            
+            if (KHelper.GetXmlProperty("KTeleport", "CanTeleportNearEnemies") != "")
+            {
+                CanTeleportNearEnemies = bool.Parse(KHelper.GetXmlProperty("KTeleport", "CanTeleportNearEnemies"));
+                KHelper.EasyLog($"MaxZedsAtWaypoint: {CanTeleportNearEnemies}", log);
+            }
+            if (KHelper.GetXmlProperty("KTeleport", "EnemyScanningRange") != "")
+            {
+                EnemyScanningRange = float.Parse(KHelper.GetXmlProperty("KTeleport", "EnemyScanningRange"));
+                KHelper.EasyLog($"EnemyScanningRange: {CanTeleportNearEnemies}", log);
+            }
             
             
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace kScripts
 {
@@ -18,6 +19,8 @@ namespace kScripts
     }
     public static class KHelper
     {
+
+
         public static void ChatOutput(EntityPlayer _entityPlayer, string msg)
         {
             if (GameManager.Instance != null)
@@ -95,15 +98,10 @@ namespace kScripts
             return keys;
         }
 
-        
-       
 
-        
-            
-         
-
-        
-            
-
+        public static void EasyLog(string msg)
+        {
+            EasyLog(msg, LogLevel.Both);
+        }
     }
 }

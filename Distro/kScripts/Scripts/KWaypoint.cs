@@ -1,20 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 using kScripts;
 using UnityEngine;
-using System.Collections.Generic;
 
 
-public class MinEventActionKTest : MinEventActionBase
+public class MinEventActionKWaypoint : MinEventActionBase
 {
     private string _command;
     private EntityPlayer _entityPlayer;
-    
     public override void Execute(MinEventParams _params)
     {
         _entityPlayer = GameManager.Instance.World.GetPrimaryPlayer();
-
-
+        Vector3i returnV3I = _entityPlayer.GetBlockPosition();
+        
         if (_command == null)
         {
             return;
@@ -23,9 +25,17 @@ public class MinEventActionKTest : MinEventActionBase
         {
             if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsClient)
             {
-                SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync("killall", null);
-                SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync("settime day", null);
-                KHelper.EasyLog("All cleaned up!", LogLevel.Chat);
+
+                if (KPortalList.Teleport(_entityPlayer, _command))
+                {
+                    KPortalList.Add(new SimplePoint("return", returnV3I));
+                }
+                else
+                {
+                    KPortalList.Add(new WayPoint(_command, _entityPlayer.GetBlockPosition()));
+                    KHelper.EasyLog("Stored waypoint.", LogLevel.Chat);
+                }
+
 
             }
             else
@@ -38,7 +48,7 @@ public class MinEventActionKTest : MinEventActionBase
     public override bool ParseXmlAttribute(XmlAttribute _attribute)
     {
         bool xmlAttribute = base.ParseXmlAttribute(_attribute);
-        if (xmlAttribute || !(_attribute.Name == "command"))
+        if (xmlAttribute || _attribute.Name != "command")
         {
             return xmlAttribute;
         }
@@ -46,5 +56,5 @@ public class MinEventActionKTest : MinEventActionBase
         this._command = _attribute.Value;
         return true;
     }
-}
 
+}

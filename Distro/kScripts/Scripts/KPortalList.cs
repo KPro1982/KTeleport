@@ -9,33 +9,65 @@ namespace kScripts
 {
     public static class KPortalList
     {
-        private static String _savepath = BuildSavePath();
-        private static string _savedGameDirectory = "";
-        private static List<Portal> _locations = Load();
+        private static String _savepath;
+        public static TeleportConfigData teleportListConfig;
+        private static List<Portal> _locations;
+        private static bool resetRequested = false;
 
+        static KPortalList()
+        {
+            teleportListConfig = new TeleportConfigData();
+            _savepath = BuildSavePath();
+            _locations = Load();
+        }
 
         public static void Add(Portal _portal)
         {
+            
             if (_locations.Exists(x => x.Name.Equals(_portal.Name)))
             {
                 int num = _locations.RemoveAll(x => x.Name.Equals(_portal.Name));
             }
 
+            _portal.Config = teleportListConfig;
             _locations.Add(_portal);
+            Save();
+        }
+        
+
+        public static void Remove(string _portalName)
+        {
+            if (_locations.Exists(x => x.Name.Equals(_portalName)))
+            {
+                int num = _locations.RemoveAll(x => x.Name.Equals(_portalName));
+            }
             Save();
         }
 
         public static bool Teleport(EntityPlayer _entityPlayer, String _name)
         {
             Portal portal;
-            if (TryGetLocation(_name, out portal))
+
+            if (resetRequested)
             {
-                portal.Teleport(_entityPlayer);
-                return true;
+                Remove(_name);
+                resetRequested = false;
+                return false;
             }
+            else {
+                if (TryGetLocation(_name, out portal))
+                {
+                    portal.Teleport(_entityPlayer);
+                    return true;
+                }
+                
+            }
+            
 
             return false;
         }
+
+       
         private static bool TryGetLocation(string _name, out Portal _portal)
         {
             _portal = _locations.Find(x => x.Name.Equals(_name));
@@ -89,13 +121,18 @@ namespace kScripts
             string[] gameNameArray = GetSavedGameDirectory().Split('/');
             string gameNameStr = (string) gameNameArray.GetValue(gameNameArray.Length - 1);
             return GetSavedGameDirectory() + "/" + gameNameStr + "_kTeleport.xml"; 
-
-          }
+            
+        }
 
         private static string GetSavedGameDirectory()
         {
             string saveDirectoryStr = GameUtils.GetSaveGameDir(null, null);
             return saveDirectoryStr;
+        }
+
+        public static void RequestReset()
+        {
+            resetRequested = true;
         }
     }
 }

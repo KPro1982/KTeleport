@@ -17,7 +17,7 @@ namespace kScripts
 
         private void GetXmlProperties()
         {
-            LogLevel log = LogLevel.Both;
+            LogLevel log = LogLevel.None;
             if (KHelper.GetXmlProperty("KTeleport", "MaxZedsAtWaypoint") != "")
             {
                 MAXZeds = int.Parse(KHelper.GetXmlProperty("KTeleport", "MaxZedsAtWaypoint"));

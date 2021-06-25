@@ -21,7 +21,7 @@ namespace kScripts
                 Vector3i fuzzyCoords = MakeFuzzy(Coords, Config.AverageDisplacementDistance);
                 SingletonMonoBehaviour<SdtdConsole>.Instance.ExecuteSync(
                         BuildConsoleCommand(fuzzyCoords, _yRestraint), null);
-                base.IncrementUsed();
+                ChargesUsed++;
                 base.StoreTimeStamp();
                 ImposeConsequences(GameManager.Instance.World.GetPrimaryPlayer());    
             }
@@ -79,10 +79,10 @@ namespace kScripts
 
         protected bool DidConsequenceTrigger()
         {
-            int chance = (int) (Config.BasePercentChanceOfConsequence * _used);
+            int chance = (int) (Config.BasePercentChanceOfConsequence * ChargesUsed);
             var rand = new Random();
             var roll = rand.Next(0, 100);
-            KHelper.EasyLog($"Used: {_used}.  You have a {chance}% chance of a negative consequence each time you use a waypont. You rolled a {roll}.", LogLevel.Chat );
+            KHelper.EasyLog($"ChargesUsed: {ChargesUsed}.  You have a {chance}% chance of a negative consequence each time you use a waypont. You rolled a {roll}.", LogLevel.Chat );
             return ( roll <= chance);
         }
     }

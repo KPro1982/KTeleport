@@ -16,7 +16,8 @@ namespace kScripts
         protected string _name;
         protected Vector3i _coords;
         public bool IsValid { get; set; } = true;
-        public static int _used;
+        public static int ChargesUsed { get; set; }
+        protected int Used { get; }
         public DateTime _timeLastUsed;
         public DateTime _timeCreated;
         public TeleportConfigData Config { get; set; }
@@ -80,12 +81,6 @@ namespace kScripts
         {
             TimeSpan tSpan = DateTime.Now - TimeLastUsed;
             return tSpan;
-        }
-
-
-        protected void IncrementUsed()
-        {
-            _used++;
         }
         
 

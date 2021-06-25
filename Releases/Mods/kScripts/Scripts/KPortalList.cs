@@ -137,9 +137,11 @@ namespace kScripts
 
         public static void AcceptCrystal()
         {
-            foreach (Portal p in _locations)
+            int i = 0;
+            foreach (Portal p in _locations)  // does this iterate over all derived portal classes? Maybe I need to use an interface here??
             {
-                Portal._used = 0;
+                Portal.ChargesUsed = 0;
+                KHelper.EasyLog($"i: {i++} name: {p.Name}");
             }
             Save();
         }

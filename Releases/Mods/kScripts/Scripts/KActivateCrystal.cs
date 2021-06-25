@@ -8,7 +8,7 @@ using kScripts;
 using UnityEngine;
 
 
-public class MinEventActionKCrystal : MinEventActionBase
+public class MinEventActionKActivateCrystal : MinEventActionBase
 {
     private EntityPlayer _entityPlayer;
     private String _command;

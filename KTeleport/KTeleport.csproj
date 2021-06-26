@@ -4,11 +4,11 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{849BEE5D-8E9F-4E8F-B130-009CCB81DB93}</ProjectGuid>
+        <ProjectGuid>{8E43F488-5FAB-43F1-941A-8960BEB95CAA}</ProjectGuid>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>kCustomRadial</RootNamespace>
-        <AssemblyName>kCustomRadial</AssemblyName>
+        <RootNamespace>KTeleport</RootNamespace>
+        <AssemblyName>KTeleport</AssemblyName>
         <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <LangVersion>8</LangVersion>
@@ -42,9 +42,6 @@
         <Reference Include="DMT, Version=2.2.7569.26209, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\..\7days-binaries\DMT.dll</HintPath>
         </Reference>
-        <Reference Include="InControl, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\..\7days-binaries\InControl.dll</HintPath>
-        </Reference>
         <Reference Include="LogAnywhere, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\..\7days-binaries\LogAnywhere.dll</HintPath>
         </Reference>
@@ -60,33 +57,47 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Mod\Harmony\KHarmonyInit.cs" />
-        <Compile Include="Mod\Harmony\KPatchSetupRadial.cs" />
-        <Compile Include="Mod\Scripts\KEventHandler.cs" />
-        <Compile Include="Mod\Scripts\KRadial.cs" />
-        <Compile Include="Mod\Scripts\KUiCUpdate.cs" />
+        <Compile Include="Mod\Scripts\EnemyActivity.cs" />
+        <Compile Include="Mod\Scripts\KActivateCrystal.cs" />
+        <Compile Include="Mod\Scripts\KHelper.cs" />
+        <Compile Include="Mod\Scripts\HomePoint.cs" />
+        <Compile Include="Mod\Scripts\KPortalList.cs" />
+        <Compile Include="Mod\Scripts\KReset.cs" />
+        <Compile Include="Mod\Scripts\SimplePoint.cs" />
+        <Compile Include="Mod\Scripts\PortalConfigData.cs" />
+        <Compile Include="Mod\Scripts\KTest.cs" />
+        <Compile Include="Mod\Scripts\KHome.cs" />
+        <Compile Include="Mod\Scripts\KWaypoint.cs" />
+        <Compile Include="Mod\Scripts\KReturn.cs" />
+        <Compile Include="Mod\Scripts\Portal.cs" />
+        <Compile Include="Mod\Scripts\WayPoint.cs" />
+        <Compile Include="Mod\Scripts\WeightedRandom.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\KTeleport\KTeleport.csproj">
-        <Project>{8e43f488-5fab-43f1-941a-8960beb95caa}</Project>
-        <Name>KTeleport</Name>
-      </ProjectReference>
+      <Content Include="Modlets\zzz_kTeleport\Config\items.xml" />
+      <Content Include="Modlets\zzz_kTeleport\Config\Localization.txt" />
+      <Content Include="Modlets\zzz_kTeleport\Config\recipes.xml" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <PropertyGroup>
         <PostBuildEvent>
+            echo Refreshing Game Folder $(ProjectName)
+            set folder="C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\Mods"
+            cd /d %folder%
+            for /F "delims=" %%i in ('dir /b') do (rmdir "%%i" /s/q || del "%%i" /s/q)
+            xcopy /S /I /E /Y "C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\7DaysToDie_Data\CleanAssembly\" "C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\7DaysToDie_Data\Managed"
+            del "C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\7DaysToDie_Data\Managed\0Harmony.dll"
+            del "C:\Prog ram Files (x86)\Steam\steamapps\common\7 Days To Die\7DaysToDie_Data\Managed\Mods.dll"
+            del "C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\7DaysToDie_Data\Managed\DMT.dll"
+                        
             echo Generating Release Folder for $(ProjectName)
             :: If you want the target folder to be named differently than your project name, change it here.
             SET TARGET=$(ProjectName)
             SET DEPLOY_PATH=$(SolutionDir)Releases\Mods\%25TARGET%25
-            SET DMT_PATH=D:\7D2D Modding\DMT\DMTViewer.exe
-            SET MOD_PATH=$(SolutionDir)Releases\Mods\
-            SET GAME_PATH=C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\
-            SET DMT_COMMANDLINE= /Silent /GameFolder "%25GAME_PATH%25" /ModFolder "%25GAME_PATH%25Mods\" /EnableAllMods
-            
-            
+            SET GAME_MODS_PATH=C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\Mods
             echo Deployment will be %25DEPLOY_PATH%25
+            echo Modlets will deploy to %25GAME_MODS_PATH%25
 
             :: Clean up the target folder, if it exists, then remake it. This is to remove stale files.
             IF EXIST "%25DEPLOY_PATH%25" (
@@ -101,23 +112,18 @@
             echo Copying over $(ProjectDir)Mod
             xcopy "$(ProjectDir)Mod\*" "%25DEPLOY_PATH%25" /e /y /i /r /q
             )
-
+            :: Copy the Modlets folder over to the game Mods directory
+            echo Copying Modlets to %25GAME_MODS_PATH%25
+            xcopy "$(ProjectDir)Modlets\*" "%25GAME_MODS_PATH%25" /e /y /i /r /q
+            
             :: Copy the Mods folder over echo Copying Mod folder from $(ProjectDir)Mods\%25TARGET%25
             IF EXIST $(ProjectDir)Root (
             echo Copying over $(ProjectDir)Root
             xcopy "$(ProjectDir)Root\*" "%25DEPLOY_PATH%25\..\..\" /e /y /i /r /q
             )
             echo Generated Build at %25DEPLOY_PATH%25
-            
-            
         </PostBuildEvent>
     </PropertyGroup>
-    
-    
-    
-    
-    
-    
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">

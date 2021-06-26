@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kCustomRadial", "kCustomRadial\kCustomRadial.csproj", "{849BEE5D-8E9F-4E8F-B130-009CCB81DB93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kScripts", "kScripts\kScripts.csproj", "{8E43F488-5FAB-43F1-941A-8960BEB95CAA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KTeleport", "KTeleport\KTeleport.csproj", "{8E43F488-5FAB-43F1-941A-8960BEB95CAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

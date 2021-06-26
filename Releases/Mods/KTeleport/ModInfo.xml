@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+	<ModInfo>
+		<Name value="KTeleport" />
+		<Description value="KPro's teleport object for standalone and dedicated server." />
+		<Author value="KPro"/>
+		<Version value="A19.3" />
+	</ModInfo>
+</xml>
